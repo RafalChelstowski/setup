@@ -78,11 +78,6 @@ vim.keymap.set(
 local opts = { noremap = true, silent = true }
 vim.keymap.set({ 'i', 's' }, '<C-j>', "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
 vim.keymap.set({ 'i', 's' }, '<C-k>', "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
-
-vim.keymap.set({ 'n', 'v' }, '<leader>aa', '<cmd>CodeCompanionActions<cr>', { noremap = true, silent = true })
-vim.keymap.set({ 'n', 'v' }, '<leader>at', '<cmd>CodeCompanionChat Toggle<cr>', { noremap = true, silent = true })
-vim.keymap.set('v', 'ga', '<cmd>CodeCompanionChat Add<cr>', { noremap = true, silent = true })
-
--- Expand 'cc' into 'CodeCompanion' in the command line
-vim.cmd [[cab cc CodeCompanion]]
+-- additional for opencode
+vim.keymap.set('n', '<leader>om', ':OpencodeModeSelect<CR>', { desc = '[O]pencode [m]ode select' })
 -- vim: ts=2 sts=2 sw=2 et
