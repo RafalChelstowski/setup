@@ -52,6 +52,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- RC custom keymaps
+vim.keymap.set('n', '<C-t>', ':terminal<CR>:startinsert<CR>', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>pp', '<cmd>w<CR><cmd>Ex<CR>')
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
