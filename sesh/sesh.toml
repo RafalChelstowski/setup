@@ -5,16 +5,3 @@ path = "~/"
 [[session]]
 name = "dev setup"
 path = "~/Dev/setup"
-
-[[session]]
-name = "ollama"
-path = "~/.ollama"
-
-[[session]]
-name = "aichat"
-path = "~/aichat"
-startup_command = "nvim -c ':terminal' -c ':startinsert'" 
-
-[[session]]
-name = "aichat config"
-path = "~/Library/Application Support/aichat"
