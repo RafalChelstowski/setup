@@ -157,7 +157,13 @@ return {
   {
     'sudo-tee/opencode.nvim',
     config = function()
-      require('opencode').setup {}
+      require('opencode').setup {
+        prefered_picker = 'telescope',
+        default_mode = 'plan',
+        ui = {
+          window_width = 0.29,
+        },
+      }
     end,
     dependencies = {
       'nvim-lua/plenary.nvim',
