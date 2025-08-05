@@ -14,9 +14,10 @@ return {
       local ft = require 'guard.filetype'
 
       -- multiple files register
-      ft('typescript,javascript,typescriptreact,json,html,css,markdown'):fmt 'prettier'
+      ft('typescript,javascript,javascriptreact,typescriptreact,json,html,css,markdown'):fmt 'prettier'
       ft('c,cpp,glsl,java'):fmt 'clang-format'
       ft('lua'):fmt 'stylua'
+      ft('python'):fmt { 'isort', 'black' }
 
       -- call setup LAST
       vim.g.guard_config = {
@@ -24,7 +25,7 @@ return {
         fmt_on_save = false,
       }
 
-      vim.keymap.set({ 'n', 'v' }, '<leader>ff', '<cmd>Guard fmt<CR>')
+      vim.keymap.set({ 'n', 'v' }, '<leader>f', '<cmd>Guard fmt<CR>')
     end,
   },
 
