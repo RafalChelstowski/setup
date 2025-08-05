@@ -3,25 +3,28 @@
   "theme": "system",
   "share": "disabled",
   "keybinds": {
-      "messages_half_page_up": "ctrl+u",
-      "messages_half_page_down": "ctrl+d"
+    "messages_half_page_up": "ctrl+u",
+    "messages_half_page_down": "ctrl+d"
   },
   "provider": {
-      "lmstudio": {
-          "models": {
-              "qwen/qwen3-coder-30b": {
-                  "name": "Qwen3 Coder 30b (local)"
-              },
-              "deepseek/deepseek-r1-0528-qwen3-8b": {
-                  "name": "deepseek-r1-0528 (local)"
-              }
-          },
-          "npm": "@ai-sdk/openai-compatible",
-          "options": {
-              "baseURL": "http://localhost:1234/v1"
-          },
-          "name": "LM Studio (local)"
-      }
+    "lmstudio": {
+      "models": {
+        "qwen/qwen3-coder-30b": {
+          "name": "Qwen3 Coder 30b (local)"
+        },
+        "deepseek/deepseek-r1-0528-qwen3-8b": {
+          "name": "deepseek-r1-0528 (local)"
+        },
+        "openai/gpt-oss-20b": {
+          "name": "gpt-oss-20b (local)"
+        }
+      },
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://localhost:1234/v1"
+      },
+      "name": "LM Studio (local)"
+    }
   },
   "model": "openai/gpt-4.1"
 }

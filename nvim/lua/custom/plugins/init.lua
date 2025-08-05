@@ -3,32 +3,6 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-
-  {
-    'nvimdev/guard.nvim',
-    -- Builtin configuration, optional
-    dependencies = {
-      'nvimdev/guard-collection',
-    },
-    init = function()
-      local ft = require 'guard.filetype'
-
-      -- multiple files register
-      ft('typescript,javascript,javascriptreact,typescriptreact,json,html,css,markdown'):fmt 'prettier'
-      ft('c,cpp,glsl,java'):fmt 'clang-format'
-      ft('lua'):fmt 'stylua'
-      ft('python'):fmt { 'isort', 'black' }
-
-      -- call setup LAST
-      vim.g.guard_config = {
-        -- format on write to buffer
-        fmt_on_save = false,
-      }
-
-      vim.keymap.set({ 'n', 'v' }, '<leader>f', '<cmd>Guard fmt<CR>')
-    end,
-  },
-
   'romainl/vim-qf',
 
   {
