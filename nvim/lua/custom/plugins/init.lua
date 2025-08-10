@@ -128,28 +128,4 @@ return {
     'zirrostig/vim-schlepp',
     keys = { { '<Plug>SchleppUp', mode = 'v' }, { '<Plug>SchleppDown', mode = 'v' } },
   },
-
-  {
-    'sudo-tee/opencode.nvim',
-    config = function()
-      require('opencode').setup {
-        prefered_picker = 'telescope',
-        default_mode = 'plan',
-        ui = {
-          window_width = 0.29,
-        },
-      }
-    end,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      {
-        'MeanderingProgrammer/render-markdown.nvim',
-        opts = {
-          anti_conceal = { enabled = false },
-          file_types = { 'markdown', 'opencode_output' },
-        },
-        ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
-      },
-    },
-  },
 }
