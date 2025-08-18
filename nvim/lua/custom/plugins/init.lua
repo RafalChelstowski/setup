@@ -4,6 +4,24 @@
 -- See the kickstart.nvim README for more information
 return {
   'romainl/vim-qf',
+  {
+    'christoomey/vim-tmux-navigator',
+    cmd = {
+      'TmuxNavigateLeft',
+      'TmuxNavigateDown',
+      'TmuxNavigateUp',
+      'TmuxNavigateRight',
+      'TmuxNavigatePrevious',
+      'TmuxNavigatorProcessList',
+    },
+    keys = {
+      { '<c-h>', '<cmd><C-U>TmuxNavigateLeft<cr>' },
+      { '<c-j>', '<cmd><C-U>TmuxNavigateDown<cr>' },
+      { '<c-k>', '<cmd><C-U>TmuxNavigateUp<cr>' },
+      { '<c-l>', '<cmd><C-U>TmuxNavigateRight<cr>' },
+      { '<c-\\>', '<cmd><C-U>TmuxNavigatePrevious<cr>' },
+    },
+  },
 
   {
     'kevinhwang91/nvim-bqf',
@@ -19,11 +37,11 @@ return {
       update_interval = 500000,
       set_dark_mode = function()
         vim.api.nvim_set_option_value('background', 'dark', {})
-        vim.cmd 'colorscheme catppuccin-mocha'
+        vim.cmd 'colorscheme tokyonight-moon'
       end,
       set_light_mode = function()
         vim.api.nvim_set_option_value('background', 'light', {})
-        vim.cmd 'colorscheme catppuccin-latte'
+        vim.cmd 'colorscheme tokyonight-day'
       end,
     },
     init = function()

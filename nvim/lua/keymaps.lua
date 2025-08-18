@@ -79,6 +79,21 @@ vim.keymap.set(
 local opts = { noremap = true, silent = true }
 vim.keymap.set({ 'i', 's' }, '<C-j>', "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
 vim.keymap.set({ 'i', 's' }, '<C-k>', "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
--- additional for opencode
-vim.keymap.set('n', '<leader>om', ':OpencodeModeSelect<CR>', { desc = '[O]pencode [m]ode select' })
+
+vim.keymap.set('n', '<leader>cf', function()
+  vim.fn.setreg('+', vim.fn.expand '%:t')
+end, { desc = 'Copy filename to clipboard' })
+
+vim.keymap.set('n', '<leader>cr', function()
+  vim.fn.setreg('+', vim.fn.expand '%:.')
+end, { desc = 'Copy relative file path to clipboard' })
+
+vim.keymap.set('n', '<leader>cw', function()
+  vim.fn.setreg('+', vim.fn.getcwd())
+end, { desc = 'Copy current working directory to clipboard' })
+
+vim.keymap.set('n', '<leader>cp', function()
+  vim.fn.setreg('+', vim.fn.expand '%:p')
+end, { desc = 'Copy full file path to clipboard' })
+
 -- vim: ts=2 sts=2 sw=2 et
