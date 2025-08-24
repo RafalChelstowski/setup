@@ -1,0 +1,8 @@
+keybind = global:§=toggle_quick_terminal
+quick-terminal-animation-duration = 0
+
+cursor-invert-fg-bg = true
+shell-integration-features = no-cursor
+minimum-contrast = 2.0
+
+theme = light:Tomorrow,dark:Tomorrow Night Bright

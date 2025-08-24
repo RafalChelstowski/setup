@@ -12,16 +12,13 @@
       "models": {
         "qwen/qwen3-coder-30b": {
           "name": "Qwen3 Coder 30b (local)"
-        },
-        "openai/gpt-oss-20b": {
-          "name": "gpt-oss-20b (local)"
         }
       },
       "npm": "@ai-sdk/openai-compatible",
       "options": {
         "baseURL": "http://localhost:1234/v1"
       },
-      "name": "LM Studio (local)"
+      "name": "LM Studio"
     }
   }
 }

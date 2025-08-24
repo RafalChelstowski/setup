@@ -96,4 +96,6 @@ vim.keymap.set('n', '<leader>cp', function()
   vim.fn.setreg('+', vim.fn.expand '%:p')
 end, { desc = 'Copy full file path to clipboard' })
 
+vim.keymap.set('n', '<leader>fr', ':OverseerRun<CR>', { desc = 'Run overseer task' })
+vim.keymap.set('n', '<leader>ft', ':OverseerToggle<CR>', { desc = 'Toggle task list' })
 -- vim: ts=2 sts=2 sw=2 et

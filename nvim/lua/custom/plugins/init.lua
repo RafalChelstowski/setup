@@ -37,11 +37,11 @@ return {
       update_interval = 500000,
       set_dark_mode = function()
         vim.api.nvim_set_option_value('background', 'dark', {})
-        vim.cmd 'colorscheme tokyonight-moon'
+        vim.cmd 'colorscheme base16-3024'
       end,
       set_light_mode = function()
         vim.api.nvim_set_option_value('background', 'light', {})
-        vim.cmd 'colorscheme tokyonight-day'
+        vim.cmd 'colorscheme base16-tomorrow'
       end,
     },
     init = function()
@@ -145,5 +145,22 @@ return {
   {
     'zirrostig/vim-schlepp',
     keys = { { '<Plug>SchleppUp', mode = 'v' }, { '<Plug>SchleppDown', mode = 'v' } },
+  },
+
+  {
+    'stevearc/overseer.nvim',
+    opts = {},
+    config = function()
+      local overseer = require 'overseer'
+      overseer.setup {
+        task_list = {
+          direction = 'bottom', -- Where task list appears
+          max_height = 20, -- Adjust as needed
+        },
+        diagnostics = {
+          enabled = true, -- Enable diagnostics integration
+        },
+      }
+    end,
   },
 }

@@ -2,7 +2,7 @@
 
 # This script links your dotfiles for each tool from this repository,
 # backing up existing configs as tool_old if present.
-tool_dirs=(atuin nvim sesh opencode)
+tool_dirs=(atuin nvim sesh opencode ghostty tmux yazi)
 
 # Remove all existing tool_old folders before backup
 for tool in "${tool_dirs[@]}"; do
@@ -12,7 +12,7 @@ for tool in "${tool_dirs[@]}"; do
     echo "Removed old backup $backup"
   fi
 done
-repo_dir="$HOME/Dev/setup"
+repo_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 config_dir="$HOME/.config"
 
 for tool in "${tool_dirs[@]}"; do
