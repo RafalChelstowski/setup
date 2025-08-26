@@ -3,5 +3,5 @@ name = "HOME"
 path = "~/"
 
 [[session]]
-name = "dev setup"
+name = "DEV SETUP"
 path = "~/Dev/setup"
