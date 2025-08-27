@@ -3,6 +3,6 @@ quick-terminal-animation-duration = 0
 
 cursor-invert-fg-bg = true
 shell-integration-features = no-cursor
-minimum-contrast = 1.0
+minimum-contrast = 1.1
 
 theme = light:Tomorrow,dark:Tomorrow Night Bright
