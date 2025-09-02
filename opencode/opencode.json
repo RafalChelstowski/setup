@@ -12,6 +12,9 @@
       "models": {
         "qwen/qwen3-coder-30b": {
           "name": "Qwen3 Coder 30b (local)"
+        },
+        "bytedance/seed-oss-36b": {
+          "name": "seed oss 36b (local)"
         }
       },
       "npm": "@ai-sdk/openai-compatible",
