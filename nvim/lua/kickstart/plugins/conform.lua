@@ -5,12 +5,21 @@ return {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>ff',
+        '<leader>fb',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = '[F]ormat [b]uffer',
+      },
+      {
+        '<leader>ff',
+        function()
+          require('conform').format { async = true, lsp_format = 'fallback' }
+          vim.cmd 'w'
+        end,
+        mode = '',
+        desc = '[F]ormat buffer and write',
       },
     },
     opts = {
