@@ -11,10 +11,10 @@
     "lmstudio": {
       "models": {
         "qwen/qwen3-coder-30b": {
-          "name": "Qwen3 Coder 30b (local)"
+          "name": "Qwen3 Coder (l)"
         },
-        "openai/gpt-oss-20b": {
-          "name": "gpt oss 20b (local)"
+        "ibm/granite-4-h-tiny": {
+          "name": "IBM Granite (l)"
         }
       },
       "npm": "@ai-sdk/openai-compatible",
