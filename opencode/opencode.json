@@ -12,9 +12,6 @@
       "models": {
         "qwen/qwen3-coder-30b": {
           "name": "Qwen3 Coder (l)"
-        },
-        "ibm/granite-4-h-tiny": {
-          "name": "IBM Granite (l)"
         }
       },
       "npm": "@ai-sdk/openai-compatible",
