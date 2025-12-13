@@ -1,0 +1,60 @@
+# Environment variables
+export HOMEBREW_NO_AUTO_UPDATE=1
+export EDITOR=nvim
+
+# Brew prefix (Apple Silicon: /opt/homebrew, Intel: /usr/local)
+BREW_PREFIX="/opt/homebrew"
+
+# Source shared config (symlinked by setup-links.sh)
+source ~/.config/zsh/zshrc.common
+
+# Pyenv (lazy-loaded for fast startup)
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
+_pyenv_load() {
+  unset -f pyenv python python3 pip pip3 _pyenv_load
+  eval "$(command pyenv init --path)"
+  eval "$(command pyenv init -)"
+}
+pyenv() { _pyenv_load; pyenv "$@"; }
+python() { _pyenv_load; python "$@"; }
+python3() { _pyenv_load; python3 "$@"; }
+pip() { _pyenv_load; pip "$@"; }
+pip3() { _pyenv_load; pip3 "$@"; }
+
+# PATH exports (adjust per machine)
+export PATH=$PATH:~/scripts
+export CPATH=/opt/homebrew/include
+export LIBRARY_PATH=/opt/homebrew/lib
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
+# Machine-specific exports (uncomment/add as needed)
+# export NTL_RUNNER=yarn
+# export AWS_PROFILE=...
+# export PATH="/path/to/tool:$PATH"
+
+# Plugins (zsh-autocomplete must be early, before compinit; zsh-vi-mode must load before starship)
+source $BREW_PREFIX/opt/zsh-autocomplete/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source $BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+# Shell integrations (starship must be after zsh-vi-mode)
+eval "$(zoxide init zsh)"
+
+# Starship init with recursion fix (upstream PR #6398)
+# Prevents "maximum nested function level" error when sourcing zshrc multiple times
+__starship_init() {
+  local init_script
+  init_script="$(starship init zsh)"
+  # Patch: detect if starship's own functions would be wrapped (causes recursion)
+  init_script=$(echo "$init_script" | sed 's/if \[\[ -z \$__starship_preserved_zle_keymap_select \]\]; then/if [[ -z ${__starship_preserved_zle_keymap_select:-} ]] || [[ $__starship_preserved_zle_keymap_select == starship_zle-keymap-select* ]]; then/')
+  eval "$init_script"
+}
+__starship_init
+unset -f __starship_init
+
+# Atuin history (after zsh-vi-mode so keybindings stick, including on reload)
+eval "$(atuin init zsh --disable-up-arrow)"
+
+# syntax-highlighting must be last
+source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

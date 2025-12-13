@@ -1,0 +1,65 @@
+# Aliases
+alias lg='lazygit'
+alias v='nvim'
+alias oc='opencode'
+alias ls='eza'
+alias cls='clear && tmux clear-history'
+alias reload='source ~/.zshrc'
+
+# Zsh options
+setopt AUTO_CD
+setopt EXTENDED_GLOB
+
+# Completion styles (zsh-autocomplete handles compinit)
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# Disable real-time completion list (only show menu on Shift+Tab)
+zstyle ':autocomplete:*:*' list-lines 0
+
+
+
+# Keybindings for completion (applied after plugins load)
+# Tab: standard completion, Shift+Tab: open menu, Escape: cancel menu
+zvm_after_init() {
+  bindkey '^I' complete-word        # Tab
+  bindkey '^[[Z' menu-select        # Shift+Tab
+  bindkey -M menuselect '^[' send-break  # Escape cancels menu
+}
+
+# NVM (lazy-loaded)
+export NVM_DIR="$HOME/.nvm"
+_nvm_load() {
+  unset -f nvm node npm npx yarn pnpm _nvm_load
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+nvm() { _nvm_load; nvm "$@"; }
+node() { _nvm_load; node "$@"; }
+npm() { _nvm_load; npm "$@"; }
+npx() { _nvm_load; npx "$@"; }
+yarn() { _nvm_load; yarn "$@"; }
+pnpm() { _nvm_load; pnpm "$@"; }
+
+# Yazi file manager
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
+
+# zsh-vi-mode config (must be before sourcing the plugin)
+ZVM_INIT_MODE=sourcing  # init immediately, not deferred to precmd
+ZVM_CURSOR_STYLE_ENABLED=true
+ZVM_INSERT_MODE_CURSOR=$ZVM_CURSOR_BLINKING_BEAM
+ZVM_NORMAL_MODE_CURSOR=$ZVM_CURSOR_BLOCK
+ZVM_VI_HIGHLIGHT_BACKGROUND=#3a3a3a
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
+
+# Reset to insert mode on Ctrl+C
+TRAPINT() {
+  zvm_enter_insert_mode
+  return $(( 128 + $1 ))
+}
+
