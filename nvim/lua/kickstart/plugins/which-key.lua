@@ -59,9 +59,20 @@ return {
 
       -- Document existing key chains
       spec = {
+        { '<leader>a', group = 'Swap [A]rgument' },
+        { '<leader>b', group = '[B]uffer' },
+        { '<leader>c', group = '[C]opy' },
+        { '<leader>d', group = '[D]iagnostics' },
+        { '<leader>f', group = '[F]ormat' },
+        { '<leader>g', group = '[G]it', mode = { 'n', 'v' } },
+        { '<leader>h', group = '[H]arpoon' },
+        { '<leader>l', group = '[L]SP' },
+        { '<leader>m', group = '[M]acros' },
+        { '<leader>n', group = '[N]eotest' },
+        { '<leader>p', group = '[P]roject/Files' },
+        { '<leader>r', group = '[R]efactor' },
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
   },
