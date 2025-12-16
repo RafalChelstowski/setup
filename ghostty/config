@@ -1,10 +1,31 @@
+# Quick Terminal (your primary interface - full screen drop-down)
 keybind = global:§=toggle_quick_terminal
 quick-terminal-animation-duration = 0
+quick-terminal-position = top
+quick-terminal-size = 100%
+quick-terminal-autohide = true
 
+# Font (FiraCode Nerd Font for icons in starship/yazi/lazygit)
+font-family = FiraCode Nerd Font Mono
+font-size = 16
+
+# Cursor
 cursor-invert-fg-bg = true
-shell-integration-features = no-cursor
-minimum-contrast = 1.1
 
+# Shell Integration
+shell-integration-features = no-cursor,sudo,title,ssh-env
+
+# Mouse & Selection
+mouse-hide-while-typing = true
+copy-on-select = true
+clipboard-trim-trailing-spaces = true
+cursor-click-to-move = true
+
+# Display
+minimum-contrast = 1.1
 theme = light:Tomorrow,dark:Tomorrow Night Bright
 
+# macOS - Minimal & Integrated
 macos-hidden = always
+macos-titlebar-style = hidden
+macos-option-as-alt = true

@@ -1,0 +1,152 @@
+" vifm configuration
+
+" Use nvim as editor
+set vicmd=nvim
+
+" Two-pane layout (default)
+set millerview
+
+" Show hidden files
+set dotfiles
+
+" Use vim-style navigation
+set vimhelp
+
+" Case-insensitive search unless uppercase
+set ignorecase
+set smartcase
+
+" Highlight search results
+set hlsearch
+set incsearch
+
+" Natural sort (foo2 before foo10)
+set sortnumbers
+
+" Status line
+set statusline="  %t%= %A %10u:%-7g %15E %20d  "
+
+" Don't wrap long lines in preview
+set wrap
+
+" Show relative line numbers
+set relativenumber
+set number
+
+" Use trash instead of rm
+set trash
+
+" History and undo
+set history=100
+set undolevels=100
+
+" Run partially entered commands if unambiguous
+set fastrun
+
+" Automatic selection after yank/delete
+set cpoptions-=s
+
+" Use ripgrep for grepping
+set grepprg='rg --line-number %i %a %s'
+
+" Use fd for finding
+set findprg='fd %p %s'
+
+" Dual-pane by default (no preview)
+" Press 'w' to toggle preview on/off
+
+" Bookmarks - jump with '<key>
+mark d ~/dev
+mark s ~/dev/setup
+mark c ~/.config
+mark h ~
+mark D ~/Downloads
+
+" Zoxide integration - :Z <query> to jump
+command! Z :execute 'cd' fnameescape(system('zoxide query %a'))
+
+" Useful commands
+command! diff nvim -d %f %F
+command! zip zip -r %f.zip %f
+command! tar tar -cvf %f.tar %f
+command! mkcd :mkdir %a | cd %a
+
+" Open current directory in Finder
+command! finder :!open .
+
+" Lazygit integration
+command! lg :!lazygit
+
+" File associations - open with nvim by default
+filetype * nvim %c
+
+" Images
+filetype {*.png,*.jpg,*.jpeg,*.gif,*.webp,*.bmp,*.ico},<image/*>
+       \ open %c
+
+" PDFs
+filetype {*.pdf},<application/pdf>
+       \ open %c
+
+" Videos
+filetype {*.mp4,*.mkv,*.avi,*.mov,*.webm},<video/*>
+       \ open %c
+
+" Archives - extract with 'x'
+filetype {*.zip},<application/zip>
+       \ unzip %c
+filetype {*.tar.gz,*.tgz},<application/gzip>
+       \ tar -xzf %c
+filetype {*.tar.bz2},<application/bzip2>
+       \ tar -xjf %c
+filetype {*.tar},<application/tar>
+       \ tar -xf %c
+
+" Key mappings
+
+" Toggle preview with w
+nnoremap w :view<cr>
+
+" Quick quit
+nnoremap q :q<cr>
+
+" Create new file
+nnoremap af :touch<space>
+
+" Create new directory
+nnoremap ad :mkdir<space>
+
+" Rename
+nnoremap cw :rename<cr>
+
+" Open shell in current directory
+nnoremap ,s :shell<cr>
+
+" Toggle hidden files
+nnoremap zh :set dotfiles!<cr>
+
+" Sync panes - make other pane same as current
+nnoremap ,= :sync<cr>
+
+" Open in Finder
+nnoremap ,f :finder<cr>
+
+" Lazygit
+nnoremap ,g :lg<cr>
+
+" Zoxide jump
+nnoremap ,z :Z<space>
+
+" Copy file path to clipboard
+nnoremap yp :!echo -n %c:p | pbcopy<cr>
+
+" Copy file name to clipboard
+nnoremap yn :!echo -n %c | pbcopy<cr>
+
+" Tab/Shift-Tab to switch panes
+nnoremap <tab> <c-w>w
+nnoremap <s-tab> <c-w>W
+
+" Familiar split navigation (like vim-tmux-navigator)
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
