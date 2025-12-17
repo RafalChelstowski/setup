@@ -8,7 +8,8 @@ brew install fzf
 brew install zoxide
 brew install starship
 brew install eza
-brew install yazi
+brew install midnight-commander
+brew install vifm
 brew install lazygit
 brew install ripgrep
 brew install fd
@@ -47,7 +48,7 @@ brew install zsh-vi-mode
 - `Tab` — standard completion
 - `Shift+Tab` — completion menu (navigate with arrows, Ctrl+J/K)
 - `Escape` — cancel completion menu
-- `Ctrl+T` / `Alt+C` — not bound (fzf shell integration removed, use zoxide/yazi instead)
+- `Ctrl+T` / `Alt+C` — not bound (fzf shell integration removed, use zoxide/mc instead)
 
 ## Tool Roles
 
@@ -56,7 +57,8 @@ brew install zsh-vi-mode
 | **atuin**            | Shell history search (`Ctrl+R`)                              |
 | **zsh-autocomplete** | Completion menu (`Shift+Tab`)                                |
 | **zoxide**           | Smart directory jumping (`z foo`)                            |
-| **yazi**             | File manager (`y`)                                           |
+| **vifm**             | Fast file manager (`prefix+y` in tmux, or `vf` in shell) - vim-native    |
+| **mc**               | Full file manager (`prefix+Y` in tmux, or `mc` in shell) - two-panel     |
 | **fzf**              | Used by tmux plugins (extrakto, sesh), not shell keybindings |
 | **starship**         | Prompt with git status, vim mode indicator                   |
 | **zsh-vi-mode**      | Vim keybindings in shell                                     |

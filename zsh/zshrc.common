@@ -40,13 +40,16 @@ npx() { _nvm_load; npx "$@"; }
 yarn() { _nvm_load; yarn "$@"; }
 pnpm() { _nvm_load; pnpm "$@"; }
 
-# Yazi file manager
-function y() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-  yazi "$@" --cwd-file="$tmp"
-  IFS= read -r -d '' cwd < "$tmp"
-  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-  rm -f -- "$tmp"
+# Midnight Commander with auto light/dark theme
+# Note: vf (vifm wrapper) is a script in ~/dev/setup/scripts/vf
+function mc() {
+  local skin
+  if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+    skin="dark"
+  else
+    skin="light"
+  fi
+  command mc -S "$skin" "$@"
 }
 
 # zsh-vi-mode config (must be before sourcing the plugin)

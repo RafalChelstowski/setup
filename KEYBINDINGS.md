@@ -1,6 +1,56 @@
-# Neovim Custom Keybindings
+# Keybindings Reference
 
-## Navigation
+## Tmux (`prefix` = Ctrl+A)
+
+### Session & Window Management
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+F` | Sesh session picker (fzf) |
+| `prefix+s` | Session tree |
+| `prefix+L` | Last session (sesh) |
+| `prefix+y` | Open vifm (fast file manager) |
+| `prefix+Y` | Open MC (full-featured file manager) |
+| `prefix+g` | Open lazygit |
+| `prefix+j` | Split pane right (35%) |
+| `prefix+J` | Split pane right with opencode |
+| `prefix+u` | New window with 50/50 split |
+| `prefix+x` | Kill pane |
+| `prefix+X` | Kill window |
+| `prefix+o` | Kill other panes |
+
+### Sesh Picker (`Ctrl+F`)
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+A` | All sessions |
+| `Ctrl+T` | Tmux sessions only |
+| `Ctrl+G` | Config sessions |
+| `Ctrl+X` | Zoxide directories |
+| `Ctrl+F` | Find directories |
+| `Ctrl+D` | Kill selected session |
+
+### Utilities
+
+| Key | Action |
+|-----|--------|
+| `prefix+F` | tmux-thumbs (pattern hints → clipboard) |
+| `prefix+Tab` | extrakto (fzf text search → clipboard) |
+| `Ctrl+D` | Show pane/window count (in zsh only) |
+
+### Copy Mode (vi)
+
+| Key | Action |
+|-----|--------|
+| `v` | Begin selection |
+| `V` | Select line |
+| `y` | Copy to clipboard |
+
+---
+
+## Neovim
+
+### Navigation
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -9,7 +59,7 @@
 | `gs` | n,x,o | Flash jump |
 | `gS` | n,x,o | Flash treesitter select |
 
-## Buffer (`<leader>b`)
+### Buffer (`<leader>b`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -21,7 +71,7 @@
 | `<leader>bx` | n | Scratch buffer |
 | `<leader>bm` | n | Markdown scratch buffer |
 
-## Macros (`<leader>m`)
+### Macros (`<leader>m`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -39,7 +89,7 @@
 4. `<leader>mr` - Replay the macro
 5. `<leader>me` - Edit if you made a mistake
 
-## Refactor (`<leader>r`)
+### Refactor (`<leader>r`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -62,7 +112,7 @@
 2. `<leader>re` - Extract to function
 3. Enter function name when prompted
 
-## Neotest (`<leader>n`)
+### Neotest (`<leader>n`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -81,6 +131,29 @@
 | `<leader>nc` | n | Run nearest with custom command (prompts) |
 | `<leader>nC` | n | Run file with custom command (prompts) |
 
+**Summary Panel Keys (`<leader>np`):**
+
+| Key | Action |
+|-----|--------|
+| `r` | Run test under cursor |
+| `d` | Debug test under cursor |
+| `o` | Show output |
+| `O` | Show short output |
+| `i` | Jump to test file |
+| `a` | Attach to running test |
+| `u` | Stop test |
+| `w` | Toggle watch mode |
+| `<CR>` | Expand/collapse |
+| `e` | Expand all |
+| `P` | Go to parent |
+| `J` | Next failed test |
+| `K` | Previous failed test |
+| `m` | Mark test |
+| `R` | Run all marked |
+| `D` | Debug all marked |
+| `M` | Clear all marks |
+| `?` | Show help |
+
 **Supported test runners:**
 - Jest (`neotest-jest`)
 - Vitest (`neotest-vitest`)
@@ -94,7 +167,7 @@
 3. `<leader>no` - See output if failed
 4. `<leader>nw` - Enable watch mode for TDD
 
-## Harpoon (`<leader>h`)
+### Harpoon (`<leader>h`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -116,7 +189,7 @@
 | `<C-x>` | Open in horizontal split |
 | `<C-t>` | Open in new tab |
 
-## Diagnostics (`<leader>d`)
+### Diagnostics (`<leader>d`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -133,7 +206,7 @@
 | `<leader>de` | n | Open floating diagnostic |
 | `[d` / `]d` | n | Previous/next diagnostic (vim-style alias) |
 
-### Compile Mode Usage
+#### Compile Mode Usage
 
 Common commands to run with `:Compile` or `<leader>dc`:
 
@@ -160,7 +233,7 @@ In compilation buffer:
 - TypeScript: `src/file.ts:10:5 - error TS2304: message`
 - ESLint stylish: `/path/file.tsx` + indented `10:5  error  message`
 
-## Treesitter Text Objects
+### Treesitter Text Objects
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -174,7 +247,7 @@ In compilation buffer:
 | `<leader>a` | n | Swap argument with next |
 | `<leader>A` | n | Swap argument with previous |
 
-## Copy to Clipboard (`<leader>c`)
+### Copy to Clipboard (`<leader>c`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -187,7 +260,7 @@ In compilation buffer:
 | `<leader>cD` | n | Copy diagnostic with context (for LLM) |
 | `<leader>ca` | n | Copy all diagnostics in buffer |
 
-### Copy Diagnostic for LLM (`<leader>cD`)
+#### Copy Diagnostic for LLM (`<leader>cD`)
 
 Copies diagnostic with file path, error message, and 3 lines of context above/below:
 
@@ -205,7 +278,7 @@ Context:
 ```
 ```
 
-## Git (`<leader>g`)
+### Git (`<leader>g`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -220,7 +293,7 @@ Context:
 | `<leader>gD` | n | Diff against last commit |
 | `]c` / `[c` | n | Next/previous hunk |
 
-### Git Conflicts (in conflicted files)
+#### Git Conflicts (in conflicted files)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -230,7 +303,7 @@ Context:
 | `c0` | n | Choose none |
 | `]x` / `[x` | n | Next/previous conflict |
 
-## Search (Telescope) (`<leader>s`)
+### Search (Telescope) (`<leader>s`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -248,7 +321,7 @@ Context:
 | `<leader>s/` | n | Live grep in open files |
 | `<leader>/` | n | Fuzzy search current buffer |
 
-## LSP Actions (`<leader>l`)
+### LSP Actions (`<leader>l`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -258,7 +331,7 @@ Context:
 | `<leader>ls` | n | Restart LSP |
 | `<leader>li` | n | LSP info |
 
-## LSP Navigation (`g*`)
+### LSP Navigation (`g*`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -271,21 +344,21 @@ Context:
 | `gW` | n | Workspace symbols |
 | `K` | n | Hover documentation |
 
-## Snippets (LuaSnip)
+### Snippets (LuaSnip)
 
 | Key | Mode | Action |
 |-----|------|--------|
 | `<C-j>` | i,s | Jump to next snippet placeholder |
 | `<C-k>` | i,s | Jump to previous snippet placeholder |
 
-## Visual Mode
+### Visual Mode
 
 | Key | Mode | Action |
 |-----|------|--------|
 | `<C-j>` | v | Move selection down (Schlepp) |
 | `<C-k>` | v | Move selection up (Schlepp) |
 
-## Toggle (`<leader>t`)
+### Toggle (`<leader>t`)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -293,13 +366,13 @@ Context:
 | `<leader>tD` | n | Toggle git deleted (preview inline) |
 | `<leader>tu` | n | Toggle Undotree |
 
-## Project/Files (`<leader>p`)
+### Project/Files (`<leader>p`)
 
 | Key | Mode | Action |
 |-----|------|--------|
 | `<leader>pp` | n,v | Save and open Oil file browser |
 
-## Other
+### Other
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -307,7 +380,7 @@ Context:
 | `<Esc><Esc>` | t | Exit terminal mode |
 | `<C-t>` | i | Tab out of brackets (neotab) |
 
-## Oil (file browser)
+### Oil (file browser)
 
 | Key | Mode | Action |
 |-----|------|--------|
@@ -315,3 +388,202 @@ Context:
 | `<CR>` | n | Open file/directory |
 | `g?` | n | Show help |
 | `g.` | n | Toggle hidden files |
+
+---
+
+## vifm (Fast File Manager)
+
+Open via `prefix+y` in tmux, or `vf` in shell (auto light/dark theme).
+
+### Navigation
+
+| Key | Action |
+|-----|--------|
+| `j` / `k` | Down / Up |
+| `h` / `l` | Parent / Enter directory |
+| `gg` / `G` | Top / Bottom |
+| `Tab` | Switch panes |
+| `Ctrl+H` / `Ctrl+L` | Move focus left/right pane |
+
+### Bookmarks
+
+| Key | Action |
+|-----|--------|
+| `'d` | Jump to ~/dev |
+| `'s` | Jump to ~/dev/setup |
+| `'c` | Jump to ~/.config |
+| `'h` | Jump to ~ |
+| `'D` | Jump to ~/Downloads |
+| `m<key>` | Set bookmark at current dir |
+
+### File Operations
+
+| Key | Action |
+|-----|--------|
+| `yy` | Yank (copy) file |
+| `dd` | Delete file |
+| `p` | Paste |
+| `cw` | Rename |
+| `af` | Create new file |
+| `ad` | Create new directory |
+
+### Useful Commands
+
+| Key | Action |
+|-----|--------|
+| `w` | Toggle preview pane |
+| `q` | Quit |
+| `zh` | Toggle hidden files |
+| `,s` | Open shell |
+| `,f` | Open in Finder |
+| `,g` | Open lazygit |
+| `,z` | Zoxide jump (`:Z <query>`) |
+| `yp` | Copy full path to clipboard |
+| `yn` | Copy filename to clipboard |
+
+### Commands
+
+| Command | Action |
+|---------|--------|
+| `:Z <query>` | Zoxide jump |
+| `:lg` | Open lazygit |
+| `:finder` | Open in Finder |
+| `:diff` | Diff selected files in nvim |
+
+---
+
+## Midnight Commander
+
+Open via `prefix+Y` in tmux, or `mc` in shell (auto light/dark theme).
+
+### Panel Navigation (vim keymap)
+
+| Key | Action |
+|-----|--------|
+| `j` / `k` | Down / Up (in viewer) |
+| `Shift+J` / `Shift+K` | Mark and move down/up |
+| `Alt+J` | Enter child directory |
+| `Alt+K` | Go to parent directory |
+| `Tab` | Switch panels |
+| `Home` / `End` | Top / Bottom of list |
+| `{` / `}` | Page up / Page down |
+
+### File Operations
+
+| Key | Action |
+|-----|--------|
+| `F3` | View file |
+| `F4` | Edit file (nvim) |
+| `F5` | Copy |
+| `F6` | Move/Rename |
+| `F7` | Make directory |
+| `F8` | Delete |
+| `F10` or `Esc Esc` | Quit |
+
+### Selection
+
+| Key | Action |
+|-----|--------|
+| `Insert` or `Ctrl+T` | Toggle select file |
+| `+` | Select by pattern |
+| `-` | Unselect by pattern |
+| `*` | Invert selection |
+
+### Navigation & Search
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+S` or `Alt+S` | Quick search (type to filter) |
+| `Alt+C` | Quick cd (type path) |
+| `Ctrl+\` | Hotlist (bookmarks) |
+| `Alt+.` | Toggle hidden files |
+| `Ctrl+O` | Toggle shell (show terminal) |
+| `Alt+H` | Directory history |
+
+### Viewer (F3) - Vim-like
+
+| Key | Action |
+|-----|--------|
+| `j` / `k` | Scroll down / up |
+| `h` / `l` | Scroll left / right |
+| `d` / `u` | Half page down / up |
+| `f` / `b` | Full page down / up |
+| `g` / `G` | Top / Bottom |
+| `/` / `?` | Search forward / backward |
+| `n` / `N` | Next / Previous match |
+| `q` | Quit viewer |
+
+### Extended Commands (`Ctrl+X` prefix)
+
+| Key | Action |
+|-----|--------|
+| `Ctrl+X c` | Chmod |
+| `Ctrl+X o` | Chown |
+| `Ctrl+X l` | Create hard link |
+| `Ctrl+X s` | Create symlink |
+| `Ctrl+X i` | Panel info |
+| `Ctrl+X q` | Quick view panel |
+| `Ctrl+X h` | Add to hotlist |
+
+---
+
+## Shell (zsh-vi-mode)
+
+### Completion
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Standard completion |
+| `Shift+Tab` | Completion menu |
+| `Escape` | Cancel completion menu |
+| `Ctrl+R` | Atuin history search |
+
+### Directory Navigation
+
+| Key | Action |
+|-----|--------|
+| `z <name>` | Zoxide jump to directory |
+| `vf` | vifm file manager (auto light/dark) |
+| `mc` | Midnight Commander (auto light/dark) |
+
+---
+
+## Troubleshooting & Notes
+
+### Neotest Jest Configuration
+
+**Issue: Tests pass but show as failed**
+
+If tests run successfully but neotest marks them as failed, check your `jestCommand`:
+
+```lua
+-- WRONG: trailing -- breaks JSON output parsing
+jestCommand = 'yarn test --',
+
+-- CORRECT: no trailing --
+jestCommand = 'yarn test',
+```
+
+The `--` causes Jest to treat neotest's flags (`--json`, `--outputFile`, etc.) as positional arguments instead of options.
+
+**Issue: E5560 Vimscript function must not be called in a fast event context**
+
+In neotest config functions (like `jestConfigFile` or `cwd`), use async-safe `vim.uv` instead of `vim.fn`:
+
+```lua
+-- WRONG: vim.fn is not async-safe
+cwd = function()
+  return vim.fn.getcwd()
+end,
+
+-- CORRECT: vim.uv is async-safe
+cwd = function()
+  return vim.uv.cwd()
+end,
+
+-- For file existence checks:
+local function file_exists(path)
+  local stat = vim.uv.fs_stat(path)
+  return stat and stat.type == 'file'
+end
+```

@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+# vifm wrapper with auto light/dark theme detection
+
+local theme
+if [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == "Dark" ]]; then
+  theme="dark"
+else
+  theme="light"
+fi
+
+exec vifm -c "colorscheme $theme" "$@"
