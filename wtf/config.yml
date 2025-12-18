@@ -1,0 +1,62 @@
+wtf:
+  colors:
+    border:
+      focusable: white
+      focused: lightblue
+      normal: white
+    background: transparent
+    text: "white"
+    title: "white"
+    highlight:
+      fore: "black"
+      back: "green"
+  grid:
+    columns: [0]
+    rows: [0, 0, 0]
+  refreshInterval: 5s
+  openFileUtil: "open"
+  mods:
+    dev_servers:
+      type: cmdrunner
+      title: "Dev Servers"
+      cmd: "wtf-dev-servers"
+      args: []
+      enabled: true
+      focusable: true
+      focusChar: 1
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 5s
+
+    test_watchers:
+      type: cmdrunner
+      title: "Test Watchers"
+      cmd: "wtf-test-watchers"
+      args: []
+      enabled: true
+      focusable: true
+      focusChar: 2
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 5s
+
+    lmstudio:
+      type: cmdrunner
+      title: "LM Studio"
+      cmd: "wtf-lmstudio-status"
+      args: []
+      enabled: true
+      focusable: true
+      focusChar: 3
+      position:
+        top: 2
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 30s

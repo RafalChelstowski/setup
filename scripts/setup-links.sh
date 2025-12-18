@@ -2,7 +2,7 @@
 
 # This script links your dotfiles for each tool from this repository,
 # backing up existing configs as tool_old if present.
-tool_dirs=(atuin nvim sesh opencode ghostty tmux mc vifm zsh)
+tool_dirs=(atuin nvim sesh opencode ghostty tmux mc vifm zsh wtf bottom)
 
 # Remove all existing tool_old folders before backup
 for tool in "${tool_dirs[@]}"; do
@@ -52,5 +52,26 @@ if [ -e "$vf_dest" ] || [ -L "$vf_dest" ]; then
 fi
 ln -s "$vf_src" "$vf_dest"
 echo "Linked $vf_src -> $vf_dest"
+
+# dashboard script (wtfutil + btm split pane launcher)
+dashboard_src="$repo_dir/scripts/dashboard.sh"
+dashboard_dest="$HOME/.local/bin/dashboard"
+if [ -e "$dashboard_dest" ] || [ -L "$dashboard_dest" ]; then
+  rm -f "$dashboard_dest"
+fi
+ln -s "$dashboard_src" "$dashboard_dest"
+echo "Linked $dashboard_src -> $dashboard_dest"
+
+# wtfutil widget scripts (must be in PATH for wtfutil CmdRunner)
+wtf_scripts=("dev-servers" "test-watchers" "lmstudio-status")
+for script in "${wtf_scripts[@]}"; do
+  src="$repo_dir/wtf/scripts/${script}.sh"
+  dest="$HOME/.local/bin/wtf-${script}"
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    rm -f "$dest"
+  fi
+  ln -s "$src" "$dest"
+  echo "Linked $src -> $dest"
+done
 
 echo "All tool configs backed up and linked!"

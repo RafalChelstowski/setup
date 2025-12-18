@@ -1,6 +1,7 @@
 [[session]]
 name = "HOME"
 path = "~/"
+startup_command = "~/.local/bin/dashboard"
 
 [[session]]
 name = "DEV SETUP"
