@@ -530,6 +530,7 @@ Open via `prefix+Y` in tmux, or `mc` in shell (auto light/dark theme).
 ## Dashboard (wtfutil + btm)
 
 Opens automatically when connecting to sesh HOME session.
+Auto-detects macOS light/dark theme and applies matching colors.
 
 ### Layout
 
@@ -539,8 +540,8 @@ Opens automatically when connecting to sesh HOME session.
 │  ┌───────────────────────────────────────┐  │  CPU graph               │
 │  │ Dev Servers                           │  │  Memory usage            │
 │  │ Shows: yarn, npm, vite, esbuild, etc. │  │  Temperature sensors     │
-│  └───────────────────────────────────────┘  │  Disk usage              │
-│  ┌───────────────────────────────────────┐  │  Process list            │
+│  └───────────────────────────────────────┘  │  Battery                 │
+│  ┌───────────────────────────────────────┐  │                          │
 │  │ Test Watchers                         │  │                          │
 │  │ Shows: jest, vitest, playwright, etc. │  │                          │
 │  └───────────────────────────────────────┘  │                          │

@@ -65,5 +65,5 @@ brew install zsh-vi-mode
 | **fzf**              | Used by tmux plugins (extrakto, sesh), not shell keybindings |
 | **starship**         | Prompt with git status, vim mode indicator                   |
 | **zsh-vi-mode**      | Vim keybindings in shell                                     |
-| **wtfutil**          | Terminal dashboard for dev info (sesh HOME session)          |
-| **bottom (btm)**     | System monitor with temps (paired with wtfutil in dashboard) |
+| **wtfutil**          | Terminal dashboard for dev info (sesh HOME session), auto light/dark theme |
+| **bottom (btm)**     | System monitor with temps (paired with wtfutil in dashboard), auto light/dark theme |
