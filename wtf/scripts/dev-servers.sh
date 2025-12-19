@@ -1,6 +1,6 @@
 #!/bin/bash
 # Detects running dev servers: yarn, npm, pnpm, vite, esbuild, next, webpack, turbo, storybook
-# Output format: Memory, CPU%, truncated command (with ANSI colors)
+# Output format: PID, PORT, Memory, CPU%, Time, Command (with ANSI colors)
 
 # ANSI color codes
 RESET='\033[0m'
@@ -12,46 +12,129 @@ CYAN='\033[36m'
 WHITE='\033[37m'
 GRAY='\033[90m'
 
-# Capture process list first to avoid matching ourselves
-ps_output=$(ps -eo pid,pcpu,rss,command 2>/dev/null)
+# Get listening ports (PID:PORT format, one per line)
+port_data=$(lsof -iTCP -sTCP:LISTEN -nP 2>/dev/null | tail -n +2 | awk '{
+  pid=$2
+  port=$9
+  gsub(/.*:/, "", port)
+  if (pid && port ~ /^[0-9]+$/) print pid":"port
+}')
 
-result=$(echo "$ps_output" | \
-  grep -E 'yarn|npm run|pnpm|vite|esbuild|next dev|webpack|turbo|storybook' | \
-  grep -v 'grep\|Helper\|Renderer\|dev-servers\|bash.*-c' | \
-  awk -v reset="$RESET" -v red="$RED" -v green="$GREEN" -v yellow="$YELLOW" -v cyan="$CYAN" -v white="$WHITE" '{
-    cpu=$2
-    mem=$3/1024
-    # Build simplified command from $4 onwards
-    cmd=""
-    for(i=4;i<=NF;i++) {
-      part=$i
-      # Extract just the binary name from paths
-      gsub(/.*\//, "", part)
-      # Skip long arguments and flags
-      if (length(part) > 30) continue
-      if (part ~ /^--/) continue
-      cmd=cmd" "part
-      # Limit output length
-      if (length(cmd) > 40) break
-    }
-    if (cmd != "") {
-      # Color for memory: green <500MB, yellow <2000MB, red >=2000MB
-      if (mem < 500) mem_color = green
-      else if (mem < 2000) mem_color = yellow
-      else mem_color = red
-      
-      # Color for CPU: white <10%, yellow <50%, red >=50%
-      if (cpu < 10) cpu_color = white
-      else if (cpu < 50) cpu_color = yellow
-      else cpu_color = red
-      
-      printf "%s%6.0fMB%s %s%5.1f%%%s %s%s%s\n", mem_color, mem, reset, cpu_color, cpu, reset, cyan, cmd, reset
-    }
-  }' | head -10)
+# Function to get ports for a PID (max 3, comma-separated)
+get_ports() {
+  local target_pid="$1"
+  local ports=""
+  local count=0
+  while IFS=: read -r pid port; do
+    if [[ "$pid" == "$target_pid" ]]; then
+      if [[ -z "$ports" ]]; then
+        ports="$port"
+      else
+        ports="$ports,$port"
+      fi
+      ((count++))
+      if [[ $count -ge 3 ]]; then
+        ports="$ports+"
+        break
+      fi
+    fi
+  done <<< "$port_data"
+  if [[ -z "$ports" ]]; then
+    echo "-"
+  else
+    echo "$ports"
+  fi
+}
 
-if [ -z "$result" ]; then
+# Function to format elapsed time (from ps etime format to compact)
+format_time() {
+  local etime="$1"
+  # etime formats: MM:SS, HH:MM:SS, D-HH:MM:SS
+  if [[ "$etime" =~ ^([0-9]+)-([0-9]+):([0-9]+):([0-9]+)$ ]]; then
+    echo "${BASH_REMATCH[1]}d${BASH_REMATCH[2]}h"
+  elif [[ "$etime" =~ ^([0-9]+):([0-9]+):([0-9]+)$ ]]; then
+    local hours="${BASH_REMATCH[1]}"
+    local mins="${BASH_REMATCH[2]}"
+    if [[ "$hours" -gt 0 ]]; then
+      echo "${hours}h${mins}m"
+    else
+      echo "${mins}m"
+    fi
+  elif [[ "$etime" =~ ^([0-9]+):([0-9]+)$ ]]; then
+    local mins="${BASH_REMATCH[1]}"
+    local secs="${BASH_REMATCH[2]}"
+    if [[ "$mins" -gt 0 ]]; then
+      echo "${mins}m${secs}s"
+    else
+      echo "${secs}s"
+    fi
+  else
+    echo "$etime"
+  fi
+}
+
+# Capture process list with elapsed time
+ps_output=$(ps -eo pid,pcpu,rss,etime,command 2>/dev/null)
+
+# Process the list
+result=""
+while IFS= read -r line; do
+  if [[ -z "$line" ]]; then continue; fi
+  
+  pid=$(echo "$line" | awk '{print $1}')
+  cpu=$(echo "$line" | awk '{print $2}')
+  rss=$(echo "$line" | awk '{print $3}')
+  etime=$(echo "$line" | awk '{print $4}')
+  cmd_full=$(echo "$line" | awk '{for(i=5;i<=NF;i++) printf "%s ", $i}')
+  
+  # Calculate memory in MB
+  mem=$((rss / 1024))
+  
+  # Get port(s) for this PID
+  port=$(get_ports "$pid")
+  
+  # Format elapsed time
+  time_fmt=$(format_time "$etime")
+  
+  # Build simplified command
+  cmd=""
+  for part in $cmd_full; do
+    part="${part##*/}"
+    [[ ${#part} -gt 30 ]] && continue
+    [[ "$part" == --* ]] && continue
+    cmd="$cmd $part"
+    [[ ${#cmd} -gt 30 ]] && break
+  done
+  
+  if [[ -n "$cmd" ]]; then
+    # Color for memory
+    if [[ $mem -lt 500 ]]; then
+      mem_color="$GREEN"
+    elif [[ $mem -lt 2000 ]]; then
+      mem_color="$YELLOW"
+    else
+      mem_color="$RED"
+    fi
+    
+    # Color for CPU
+    cpu_int=${cpu%.*}
+    if [[ $cpu_int -lt 10 ]]; then
+      cpu_color="$WHITE"
+    elif [[ $cpu_int -lt 50 ]]; then
+      cpu_color="$YELLOW"
+    else
+      cpu_color="$RED"
+    fi
+    
+    result+=$(printf "${WHITE}%6s${RESET} ${CYAN}%-15s${RESET} ${mem_color}%6sMB${RESET} ${cpu_color}%5.1f%%${RESET} ${GRAY}%7s${RESET} ${CYAN}%s${RESET}\n" \
+      "$pid" "$port" "$mem" "$cpu" "$time_fmt" "$cmd")
+    result+=$'\n'
+  fi
+done < <(echo "$ps_output" | grep -E 'yarn|npm run|pnpm|vite|esbuild|next dev|webpack|turbo|storybook' | grep -v 'grep\|Helper\|Renderer\|dev-servers\|bash.*-c' | head -10)
+
+if [[ -z "$result" ]]; then
   echo -e "${GRAY}(none running)${RESET}"
 else
-  echo -e "${BOLD}${WHITE}   MEM     CPU   COMMAND${RESET}"
+  echo -e "${BOLD}${WHITE}   PID PORT               MEM    CPU     TIME COMMAND${RESET}"
   echo -e "$result"
 fi

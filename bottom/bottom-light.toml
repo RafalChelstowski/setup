@@ -1,9 +1,11 @@
-# Bottom (btm) configuration optimized for 35% width right pane in dashboard
-# Hides network, focuses on CPU, Memory, Temperature, Disk, Processes
+# Bottom (btm) light theme configuration
+# Optimized for 35% width right pane in dashboard
+
+[styles]
+theme = "default-light"
 
 [flags]
 rate = "1s"
-default_widget_type = "proc"
 hide_avg_cpu = false
 hide_table_gap = true
 show_table_scroll_position = true

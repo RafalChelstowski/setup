@@ -1,62 +1,101 @@
 wtf:
   colors:
     border:
-      focusable: white
-      focused: lightblue
-      normal: white
-    background: transparent
-    text: "white"
-    title: "white"
-    highlight:
-      fore: "black"
-      back: "green"
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
   grid:
-    columns: [0]
-    rows: [0, 0, 0]
-  refreshInterval: 5s
-  openFileUtil: "open"
+    columns: [32, 32, 32, 32, 90]
+    rows: [10, 10, 10, 4, 4, 90]
+  refreshInterval: 1
   mods:
-    dev_servers:
-      type: cmdrunner
-      title: "Dev Servers"
-      cmd: "wtf-dev-servers"
-      args: []
+    clocks_a:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
       enabled: true
-      focusable: true
-      focusChar: 1
+      locations:
+        Vancouver: "America/Vancouver"
+        Toronto: "America/Toronto"
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+      title: "Clocks A"
+      type: "clocks"
+    clocks_b:
+      colors:
+        rows:
+          even: "lightblue"
+          odd: "white"
+      enabled: true
+      locations:
+        Paris: "Europe/Paris"
+        Barcelona: "Europe/Madrid"
+        Dubai: "Asia/Dubai"
+      position:
+        top: 0
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 15
+      sort: "alphabetical"
+      title: "Clocks B"
+      type: "clocks"
+    feedreader:
+      enabled: true
+      feeds:
+      - http://feeds.bbci.co.uk/news/rss.xml
+      feedLimit: 10
+      position:
+        top: 1
+        left: 1
+        width: 2
+        height: 1
+      refreshInterval: 14400
+    ipinfo:
+      colors:
+        name: "lightblue"
+        value: "white"
+      enabled: true
+      position:
+        top: 2
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 150
+    power:
+      enabled: true
+      position:
+        top: 2
+        left: 2
+        height: 1
+        width: 1
+      refreshInterval: 15
+      title: "⚡️"
+    textfile:
+      enabled: true
+      filePath: "~/.config/wtf/config.yml"
+      format: true
       position:
         top: 0
         left: 0
-        height: 1
+        height: 4
         width: 1
-      refreshInterval: 5s
-
-    test_watchers:
-      type: cmdrunner
-      title: "Test Watchers"
-      cmd: "wtf-test-watchers"
-      args: []
+      refreshInterval: 30
+      wrapText: false
+    uptime:
+      args: [""]
+      cmd: "uptime"
       enabled: true
-      focusable: true
-      focusChar: 2
       position:
-        top: 1
-        left: 0
+        top: 3
+        left: 1
         height: 1
-        width: 1
-      refreshInterval: 5s
-
-    lmstudio:
+        width: 2
+      refreshInterval: 30
       type: cmdrunner
-      title: "LM Studio"
-      cmd: "wtf-lmstudio-status"
-      args: []
-      enabled: true
-      focusable: true
-      focusChar: 3
-      position:
-        top: 2
-        left: 0
-        height: 1
-        width: 1
-      refreshInterval: 30s

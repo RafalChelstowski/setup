@@ -1,0 +1,39 @@
+# Bottom (btm) dark theme configuration
+# Optimized for 35% width right pane in dashboard
+
+[styles]
+theme = "default"
+
+[flags]
+rate = "1s"
+hide_avg_cpu = false
+hide_table_gap = true
+show_table_scroll_position = true
+disable_click = false
+expanded = false
+group_processes = true
+process_memory_as_value = true
+tree = false
+temperature_type = "c"
+
+# Custom layout for narrow pane (CPU, Memory, Temp, Battery)
+[[row]]
+  ratio = 2
+  [[row.child]]
+    type = "cpu"
+
+[[row]]
+  ratio = 2
+  [[row.child]]
+    type = "mem"
+
+[[row]]
+  ratio = 3
+  [[row.child]]
+    type = "temp"
+    default = true
+
+[[row]]
+  ratio = 1
+  [[row.child]]
+    type = "batt"
