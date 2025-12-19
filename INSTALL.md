@@ -10,6 +10,8 @@ brew install starship
 brew install eza
 brew install midnight-commander
 brew install vifm
+brew install wtfutil
+brew install bottom
 brew install lazygit
 brew install ripgrep
 brew install fd
@@ -32,7 +34,8 @@ brew install zsh-vi-mode
    - PATH exports as needed
    - Machine-specific env vars (AWS_PROFILE, etc.)
 4. Install tmux plugins: `prefix + I` in tmux
-5. Reload shell: `source ~/.zshrc`
+5. Reload tmux config: `prefix + R` (or `tmux source ~/.config/tmux/tmux.conf`)
+6. Reload shell: `source ~/.zshrc`
 
 ## Performance Notes
 
@@ -62,3 +65,5 @@ brew install zsh-vi-mode
 | **fzf**              | Used by tmux plugins (extrakto, sesh), not shell keybindings |
 | **starship**         | Prompt with git status, vim mode indicator                   |
 | **zsh-vi-mode**      | Vim keybindings in shell                                     |
+| **wtfutil**          | Terminal dashboard for dev info (sesh HOME session)          |
+| **bottom (btm)**     | System monitor with temps (paired with wtfutil in dashboard) |

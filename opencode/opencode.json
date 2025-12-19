@@ -12,6 +12,9 @@
       "models": {
         "qwen/qwen3-coder-30b": {
           "name": "Qwen3 Coder (l)"
+        },
+        "mistralai/devstral-small-2-2512": {
+          "name": "Devstral Small 2 (l)"
         }
       },
       "npm": "@ai-sdk/openai-compatible",

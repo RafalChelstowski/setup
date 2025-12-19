@@ -527,6 +527,61 @@ Open via `prefix+Y` in tmux, or `mc` in shell (auto light/dark theme).
 
 ---
 
+## Dashboard (wtfutil + btm)
+
+Opens automatically when connecting to sesh HOME session.
+
+### Layout
+
+```
+┌─────────────────────────────────────────────┬──────────────────────────┐
+│  wtfutil (65%)                              │  btm (35%)               │
+│  ┌───────────────────────────────────────┐  │  CPU graph               │
+│  │ Dev Servers                           │  │  Memory usage            │
+│  │ Shows: yarn, npm, vite, esbuild, etc. │  │  Temperature sensors     │
+│  └───────────────────────────────────────┘  │  Disk usage              │
+│  ┌───────────────────────────────────────┐  │  Process list            │
+│  │ Test Watchers                         │  │                          │
+│  │ Shows: jest, vitest, playwright, etc. │  │                          │
+│  └───────────────────────────────────────┘  │                          │
+│  ┌───────────────────────────────────────┐  │                          │
+│  │ LM Studio                             │  │                          │
+│  │ Server status, loaded models          │  │                          │
+│  └───────────────────────────────────────┘  │                          │
+└─────────────────────────────────────────────┴──────────────────────────┘
+```
+
+### wtfutil Keys
+
+| Key | Action |
+|-----|--------|
+| `1` | Focus Dev Servers widget |
+| `2` | Focus Test Watchers widget |
+| `3` | Focus LM Studio widget |
+| `r` | Refresh focused widget |
+| `/` | Open widget help |
+| `q` | Quit wtfutil (shell remains) |
+
+### btm Keys
+
+| Key | Action |
+|-----|--------|
+| `h/j/k/l` | Navigate widgets |
+| `gg` / `G` | Jump to top/bottom of process list |
+| `/` | Search processes |
+| `Tab` | Toggle process tree view |
+| `e` | Expand selected widget |
+| `q` | Quit btm (shell remains) |
+
+### Pane Navigation (standard tmux)
+
+| Key | Action |
+|-----|--------|
+| `prefix + arrow` | Switch between wtfutil and btm panes |
+| `prefix + z` | Zoom current pane |
+
+---
+
 ## Shell (zsh-vi-mode)
 
 ### Completion
