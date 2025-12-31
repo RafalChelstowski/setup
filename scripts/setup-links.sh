@@ -2,7 +2,9 @@
 
 # This script links your dotfiles for each tool from this repository,
 # backing up existing configs as tool_old if present.
-tool_dirs=(atuin nvim sesh opencode ghostty tmux mc vifm zsh wtf bottom)
+# Note: opencode is excluded from symlinking because it requires a separate setup
+# script (setup-opencode-config.sh) to avoid bun package management issues.
+tool_dirs=(atuin nvim sesh ghostty tmux mc vifm zsh wtf bottom)
 
 # Remove all existing tool_old folders before backup
 for tool in "${tool_dirs[@]}"; do

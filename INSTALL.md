@@ -67,3 +67,39 @@ brew install zsh-vi-mode
 | **zsh-vi-mode**      | Vim keybindings in shell                                     |
 | **wtfutil**          | Terminal dashboard for dev info (sesh HOME session), auto light/dark theme |
 | **bottom (btm)**     | System monitor with temps (paired with wtfutil in dashboard), auto light/dark theme |
+| **OpenCode**         | AI coding agent (install globally with `bun install -g opencode-ai`)                  |
+
+## OpenCode Setup
+
+OpenCode requires special handling because bun manages its packages separately from the configuration files. Follow these steps:
+
+1. **Clean up old installation and cache**:
+   ```bash
+   ./scripts/cleanup-opencode.sh
+   ```
+
+2. **Remove the symlink** (manual step required):
+   ```bash
+   rm ~/.config/opencode
+   ```
+
+3. **Setup OpenCode configuration**:
+   ```bash
+   ./scripts/setup-opencode-config.sh
+   ```
+
+4. **Install OpenCode globally** (if not already installed):
+   ```bash
+   bun install -g opencode-ai
+   ```
+
+**Why separate setup?**
+- OpenCode creates `package.json`, `bun.lock`, and `node_modules/` in its config directory
+- If `~/.config/opencode` is symlinked to the repo, bun installs packages inside the repository
+- This causes slow installations and clutters the git repo with package files
+- The solution is to only copy `opencode.json` (config file) and let bun manage packages globally in `~/.bun/install/cache/`
+
+**Run cleanup when:**
+- Installation is slow or hangs
+- You see `package.json`, `bun.lock`, or `node_modules/` in the repo's opencode folder
+- You want to clear old cached packages

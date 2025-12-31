@@ -1,2 +1,6 @@
 .opencode/
 tmux/plugins/*
+# OpenCode package files (should not be in repo - managed by bun)
+opencode/package.json
+opencode/bun.lock
+opencode/node_modules/
