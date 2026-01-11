@@ -103,3 +103,131 @@ OpenCode requires special handling because bun manages its packages separately f
 - Installation is slow or hangs
 - You see `package.json`, `bun.lock`, or `node_modules/` in the repo's opencode folder
 - You want to clear old cached packages
+
+## OpenCode Troubleshooting
+
+### Multiple OpenCode Installations
+
+**Problem**: You have opencode installed via multiple methods (curl, brew, bun) causing different tools to pick different versions.
+
+**Symptoms**:
+- `opencode --version` shows different version than expected
+- Tmux binding (`prefix+J`) uses old version
+- 99 plugin fails with "process exit code: 1"
+
+**Diagnostic steps**:
+```bash
+# Check all opencode installations
+which -a opencode
+
+# Verify current version
+opencode --version
+```
+
+**Solution**: Keep only bun installation, remove others:
+```bash
+# Remove brew version
+brew uninstall opencode
+
+# Remove curl version
+rm -f ~/.opencode/bin/opencode
+
+# Remove conflicting PATH entry from ~/.zshrc (if exists)
+# Remove: export PATH=/Users/.../.opencode/bin:$PATH
+```
+
+### Tmux PATH Configuration
+
+**Problem**: Tmux doesn't inherit shell PATH automatically, causing tmux to use wrong opencode version.
+
+**Symptoms**:
+- Shell uses correct version: `opencode --version` → 1.1.11
+- Tmux uses wrong version: `prefix+J` opens old version (0.3.81)
+
+**Diagnostic step**:
+```bash
+# Check tmux global PATH
+tmux show-environment -g | grep PATH
+```
+
+**Solution**: Add PATH to `~/.config/tmux/tmux.conf`:
+```bash
+# After terminal settings section
+set-environment -g "PATH" "$HOME/.bun/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+```
+
+Reload tmux:
+```bash
+tmux source-file ~/.config/tmux/tmux.conf
+```
+
+### 99 Plugin Model Configuration
+
+**Problem**: 99 plugin uses default model (`opencode/claude-sonnet-4-5`) instead of configured model.
+
+**Symptoms**:
+- 99 plugin fails with error: `"process exit code: 1"`
+- `opencode run -m opencode/grok-code "test"` works, but 99 fails
+- 99 plugin tries to use unavailable/default model
+
+**Solution**: Add model to 99 plugin setup in Neovim config (`~/.config/nvim/lua/custom/plugins/init.lua`):
+```lua
+_99.setup {
+  logger = {
+    level = _99.DEBUG,
+    path = '/tmp/' .. basename .. '.99.debug',
+    print_on_error = true,
+  },
+  model = "opencode/grok-code",  -- Add this line
+
+  md_files = {
+    'AGENT.md',
+  },
+}
+```
+
+Restart Neovim and test: `<leader>9v` in visual mode.
+
+### OpenCode Zen Connection
+
+**Problem**: Model not available or API key not configured.
+
+**Diagnostic steps**:
+```bash
+# Check if credentials exist
+opencode auth list
+
+# Verify model availability (replace <your-key> with actual API key)
+curl -s https://opencode.ai/zen/v1/models -H "Authorization: Bearer <your-key>" | grep grok-code
+```
+
+**Solution**: Connect to OpenCode Zen:
+```bash
+# 1. Open OpenCode TUI
+opencode
+
+# 2. Run connect command
+/connect
+
+# 3. Select "opencode" (OpenCode Zen)
+# 4. Get API key from https://opencode.ai/auth
+# 5. Paste API key when prompted
+
+# Test model
+opencode run -m opencode/grok-code "test"
+```
+
+### 99 Plugin Debug Logs
+
+**Problem**: 99 plugin fails, need detailed error information.
+
+**Diagnostic step**:
+```bash
+# Debug log location (based on project name)
+/tmp/<project-folder>.99.debug
+```
+
+Example for setup repo:
+```bash
+/tmp/setup.99.debug
+```

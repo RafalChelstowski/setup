@@ -372,6 +372,15 @@ Context:
 |-----|------|--------|
 | `<leader>pp` | n,v | Save and open Oil file browser |
 
+### 99 Plugin (`<leader>9`)
+
+| Key | Mode | Action |
+|-----|------|--------|
+| `<leader>9f` | n | Fill in function |
+| `<leader>9v` | v | Visual selection |
+| `<leader>9a` | v | Visual prompt |
+| `<leader>9s` | v | Stop requests |
+
 ### Other
 
 | Key | Mode | Action |

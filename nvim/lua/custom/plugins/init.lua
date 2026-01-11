@@ -144,8 +144,22 @@ return {
     ---@type Flash.Config
     opts = {},
     keys = {
-      { 'gs', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
-      { 'gS', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+      {
+        'gs',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').jump()
+        end,
+        desc = 'Flash',
+      },
+      {
+        'gS',
+        mode = { 'n', 'x', 'o' },
+        function()
+          require('flash').treesitter()
+        end,
+        desc = 'Flash Treesitter',
+      },
     },
   },
 
@@ -277,22 +291,22 @@ return {
 
           -- Pattern 1: TypeScript format with error message
           -- Matches: src/store/app-slice.ts:180:7 - error TS2722: Cannot invoke...
-          filepath, lnum, col, msg = line:match('^([%w%._/-]+%.%w+):(%d+):(%d+)%s+%-%s+%w+%s+%w+:%s*(.+)$')
+          filepath, lnum, col, msg = line:match '^([%w%._/-]+%.%w+):(%d+):(%d+)%s+%-%s+%w+%s+%w+:%s*(.+)$'
 
           if not filepath then
             -- Pattern 2: TypeScript format without message (just path:line:col)
-            filepath, lnum, col = line:match('^([%w%._/-]+%.%w+):(%d+):(%d+)')
+            filepath, lnum, col = line:match '^([%w%._/-]+%.%w+):(%d+):(%d+)'
           end
 
           if not filepath then
             -- Pattern 3: path(line,col) format (alternative TypeScript format)
-            filepath, lnum, col = line:match('([%w%._/-]+%.%w+)%((%d+),(%d+)%)')
+            filepath, lnum, col = line:match '([%w%._/-]+%.%w+)%((%d+),(%d+)%)'
           end
 
           if not filepath then
             -- Pattern 4: Standalone absolute path line (ESLint stylish file header)
             -- Matches: /Users/user/project/src/file.tsx
-            local standalone_path = line:match('^(/[^%s:%(]+%.%w+)%s*$')
+            local standalone_path = line:match '^(/[^%s:%(]+%.%w+)%s*$'
             if standalone_path then
               current_file = standalone_path
               filepath = nil -- Don't create entry yet, wait for error lines
@@ -302,14 +316,14 @@ return {
           if not filepath and current_file then
             -- Pattern 5: ESLint stylish format - indented line:col  severity  message
             -- Matches:   38:6  warning  React Hook useEffect has a missing dependency
-            lnum, col, msg = line:match('^%s+(%d+):(%d+)%s+%w+%s+(.+)$')
+            lnum, col, msg = line:match '^%s+(%d+):(%d+)%s+%w+%s+(.+)$'
             if lnum then
               filepath = current_file
             end
           end
 
           -- Reset current_file if we hit an empty line (end of ESLint file section)
-          if line:match('^%s*$') then
+          if line:match '^%s*$' then
             current_file = nil
           end
 
@@ -544,7 +558,7 @@ return {
             dap = { justMyCode = false },
             runner = 'pytest',
           },
-          require 'neotest-playwright'.adapter {
+          require('neotest-playwright').adapter {
             options = {
               persist_project_selection = true,
               enable_dynamic_test_discovery = true,
@@ -641,6 +655,63 @@ return {
           }
         end
       end, { desc = 'Run file with [C]ustom command' })
+    end,
+  },
+  {
+    'ThePrimeagen/99',
+    config = function()
+      local _99 = require '99'
+
+      -- For logging that is to a file if you wish to trace through requests
+      -- for reporting bugs, i would not rely on this, but instead the provided
+      -- logging mechanisms within 99.  This is for more debugging purposes
+      local cwd = vim.uv.cwd()
+      local basename = vim.fs.basename(cwd)
+       _99.setup {
+         logger = {
+           level = _99.DEBUG,
+           path = '/tmp/' .. basename .. '.99.debug',
+           print_on_error = true,
+         },
+         model = "opencode/grok-code",
+
+         --- WARNING: if you change cwd then this is likely broken
+         --- ill likely fix this in a later change
+         ---
+         --- md_files is a list of files to look for and auto add based on the location
+         --- of the originating request.  That means if you are at /foo/bar/baz.lua
+         --- the system will automagically look for:
+         --- /foo/bar/AGENT.md
+         --- /foo/AGENT.md
+         --- assuming that /foo is project root (based on cwd)
+         md_files = {
+           'AGENT.md',
+         },
+       }
+
+      -- Create your own short cuts for the different types of actions
+      vim.keymap.set('n', '<leader>9f', function()
+        _99.fill_in_function()
+      end, { desc = '[9]9 Fill in function' })
+      -- take extra note that i have visual selection only in v mode
+      -- technically whatever your last visual selection is, will be used
+      -- so i have this set to visual mode so i dont screw up and use an
+      -- old visual selection
+      --
+      -- likely ill add a mode check and assert on required visual mode
+      -- so just prepare for it now
+      vim.keymap.set('v', '<leader>9v', function()
+        _99.visual()
+      end, { desc = '[9]9 Visual selection' })
+
+      vim.keymap.set('v', '<leader>9a', function()
+        _99.visual_prompt()
+      end, { desc = '[9]9 Visual prompt' })
+
+      --- if you have a request you dont want to make any changes, just cancel it
+      vim.keymap.set('v', '<leader>9s', function()
+        _99.stop_all_requests()
+      end, { desc = '[9]9 Stop requests' })
     end,
   },
 }
