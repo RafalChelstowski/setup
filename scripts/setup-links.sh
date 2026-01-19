@@ -64,6 +64,24 @@ fi
 ln -s "$dashboard_src" "$dashboard_dest"
 echo "Linked $dashboard_src -> $dashboard_dest"
 
+# gwt script (git worktree with zoxide and tmux integration)
+gwt_src="$repo_dir/scripts/gwt"
+gwt_dest="$HOME/.local/bin/gwt"
+if [ -e "$gwt_dest" ] || [ -L "$gwt_dest" ]; then
+  rm -f "$gwt_dest"
+fi
+ln -s "$gwt_src" "$gwt_dest"
+echo "Linked $gwt_src -> $gwt_dest"
+
+# gwtr script (git worktree remove with zoxide and tmux cleanup)
+gwtr_src="$repo_dir/scripts/gwtr"
+gwtr_dest="$HOME/.local/bin/gwtr"
+if [ -e "$gwtr_dest" ] || [ -L "$gwtr_dest" ]; then
+  rm -f "$gwtr_dest"
+fi
+ln -s "$gwtr_src" "$gwtr_dest"
+echo "Linked $gwtr_src -> $gwtr_dest"
+
 # wtfutil widget scripts (must be in PATH for wtfutil CmdRunner)
 wtf_scripts=("dev-servers" "test-watchers" "lmstudio-status")
 for script in "${wtf_scripts[@]}"; do

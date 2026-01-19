@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+# gwtr - Remove git worktree with zoxide cleanup and tmux session kill
+# Usage: gwtr <branch-name> [folder-name]
+# If folder-name is omitted, defaults to branch-name
+
+set -euo pipefail
+
+# Check if we're in a git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+  echo "Error: Not in a git repository"
+  exit 1
+fi
+
+# Check arguments
+if [ $# -eq 0 ] || [ $# -gt 2 ]; then
+  echo "Usage: gwtr <branch-name> [folder-name]"
+  echo "  branch-name: Name of the branch to remove"
+  echo "  folder-name: (optional) Folder for the worktree, defaults to branch-name"
+  exit 1
+fi
+
+BRANCH_NAME="$1"
+FOLDER_NAME="${2:-$1}"
+
+# Check if branch exists
+if ! git show-ref --verify --quiet "refs/heads/$BRANCH_NAME" 2>/dev/null; then
+  echo "Error: Branch '$BRANCH_NAME' does not exist"
+  exit 1
+fi
+
+# Check if folder exists
+if [ ! -d "$FOLDER_NAME" ]; then
+  echo "Error: Folder '$FOLDER_NAME' does not exist"
+  exit 1
+fi
+
+# Get absolute path
+ABSOLUTE_PATH="$(cd "$(dirname "$FOLDER_NAME")" && pwd)/$(basename "$FOLDER_NAME")"
+
+# Check for uncommitted changes in worktree
+if git -C "$ABSOLUTE_PATH" status --porcelain | grep -q .; then
+  echo "⚠️  Warning: Worktree has uncommitted changes:"
+  git -C "$ABSOLUTE_PATH" status --short
+  echo ""
+  read -p "Continue anyway? (y/N): " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Aborted"
+    exit 0
+  fi
+fi
+
+# Show what will be deleted
+echo "This will remove:"
+echo "  ✓ Git worktree: $ABSOLUTE_PATH"
+echo "  ✓ Git branch: $BRANCH_NAME"
+echo "  ✓ Folder and contents: $ABSOLUTE_PATH"
+
+# Check if tmux session exists
+SESSION_NAME="$(basename "$FOLDER_NAME")"
+if tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+  echo "  ✓ Tmux session: $SESSION_NAME"
+  HAS_SESSION=true
+else
+  HAS_SESSION=false
+fi
+
+# Check if path is in zoxide
+if zoxide query "$ABSOLUTE_PATH" &>/dev/null; then
+  echo "  ✓ Zoxide entry for: $ABSOLUTE_PATH"
+  IN_ZOXIDE=true
+else
+  IN_ZOXIDE=false
+fi
+
+echo ""
+read -p "Continue? (y/N): " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  echo "Aborted"
+  exit 0
+fi
+
+# Kill tmux session if it exists
+if [ "$HAS_SESSION" = true ]; then
+  echo "  Killing tmux session '$SESSION_NAME'..."
+  tmux kill-session -t "$SESSION_NAME" 2>/dev/null || true
+  echo "  ✓ Killed tmux session"
+fi
+
+# Remove from zoxide if present
+if [ "$IN_ZOXIDE" = true ]; then
+  echo "  Removing '$ABSOLUTE_PATH' from zoxide database..."
+  zoxide remove "$ABSOLUTE_PATH" 2>/dev/null || true
+  echo "  ✓ Removed from zoxide database"
+fi
+
+# Remove git worktree
+echo "  Removing git worktree..."
+git worktree remove "$ABSOLUTE_PATH" -f || {
+  echo "  Warning: Failed to remove worktree via git, attempting manual removal..."
+  git worktree list
+  # Get worktree path from git worktree list and try manual removal
+  WORKTREE_PATH=$(git worktree list | grep "\[${BRANCH_NAME}\]" | awk '{print $1}')
+  if [ -n "$WORKTREE_PATH" ] && [ -d "$WORKTREE_PATH" ]; then
+    rm -rf "$WORKTREE_PATH"
+    git worktree prune
+  fi
+}
+echo "  ✓ Removed git worktree"
+
+# Delete the branch
+echo "  Deleting branch '$BRANCH_NAME'..."
+git branch -D "$BRANCH_NAME"
+echo "  ✓ Deleted branch"
+
+echo ""
+echo "✓ Worktree removal complete!"
+echo "  Branch: $BRANCH_NAME (deleted)"
+echo "  Folder: $ABSOLUTE_PATH (deleted)"

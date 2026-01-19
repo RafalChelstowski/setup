@@ -1,12 +1,24 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": false,
-  "model": "opencode/grok-code",
+  "model": "opencode/glm-4.7-free",
   "theme": "system",
   "share": "disabled",
   "keybinds": {
     "messages_half_page_up": "ctrl+u",
     "messages_half_page_down": "ctrl+d"
+  },
+  "agent": {
+    "advisor": {
+      "description": "Explores topics and suggests solutions without code or implementation details",
+      "mode": "primary",
+      "prompt": "You are a technical advisor. Your role is to:\n\n1. Explore and analyze topics, concepts, and problems\n2. Suggest architectural approaches, strategies, and solutions\n3. Discuss trade-offs, best practices, and considerations\n4. Recommend patterns and methodologies\n\nSTRICT CONSTRAINTS:\n- NEVER provide code snippets or examples\n- NEVER propose implementation details\n- NEVER write or show any programming code\n- Focus on concepts, strategies, and high-level guidance\n- When discussing solutions, describe WHAT and WHY, not HOW\n\nYour responses should be conceptual, strategic, and focused on understanding the problem space and potential approaches without diving into implementation.",
+      "tools": {
+        "write": false,
+        "edit": false,
+        "bash": false
+      }
+    }
   },
   "provider": {
     "lmstudio": {

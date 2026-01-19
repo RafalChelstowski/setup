@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# gwt - Create git worktree with zoxide integration and tmux session
+# Usage: gwt <branch-name> [folder-name]
+# If folder-name is omitted, defaults to branch-name
+
+set -euo pipefail
+
+# Check if we're in a git repository
+if ! git rev-parse --git-dir > /dev/null 2>&1; then
+  echo "Error: Not in a git repository"
+  exit 1
+fi
+
+# Check arguments
+if [ $# -eq 0 ] || [ $# -gt 2 ]; then
+  echo "Usage: gwt <branch-name> [folder-name]"
+  echo "  branch-name: Name of the new branch to create"
+  echo "  folder-name: (optional) Folder for the worktree, defaults to branch-name"
+  exit 1
+fi
+
+BRANCH_NAME="$1"
+FOLDER_NAME="${2:-$1}"
+
+# Check if branch already exists
+if git show-ref --verify --quiet "refs/heads/$BRANCH_NAME" 2>/dev/null; then
+  echo "Error: Branch '$BRANCH_NAME' already exists"
+  exit 1
+fi
+
+# Check if folder already exists
+if [ -d "$FOLDER_NAME" ]; then
+  echo "Error: Folder '$FOLDER_NAME' already exists"
+  exit 1
+fi
+
+# Get current HEAD
+CURRENT_HEAD=$(git rev-parse --abbrev-ref HEAD)
+CURRENT_COMMIT=$(git rev-parse HEAD)
+
+echo "Creating worktree for branch '$BRANCH_NAME' in folder '$FOLDER_NAME'"
+echo "  Base branch: $CURRENT_HEAD ($CURRENT_COMMIT)"
+
+# Create the branch
+git branch "$BRANCH_NAME" "$CURRENT_COMMIT"
+
+# Create the worktree
+git worktree add "$FOLDER_NAME" "$BRANCH_NAME"
+
+# Get absolute path for zoxide and tmux
+ABSOLUTE_PATH="$(cd "$(dirname "$FOLDER_NAME")" && pwd)/$(basename "$FOLDER_NAME")"
+
+# Add to zoxide database
+zoxide add "$ABSOLUTE_PATH"
+echo "  ✓ Added '$ABSOLUTE_PATH' to zoxide database"
+
+# Create tmux session
+tmux new-session -d -s "$(basename "$FOLDER_NAME")" -c "$ABSOLUTE_PATH"
+echo "  ✓ Created tmux session '$(basename "$FOLDER_NAME")'"
+
+echo ""
+echo "✓ Worktree created successfully!"
+echo "  Folder: $ABSOLUTE_PATH"
+echo "  Branch: $BRANCH_NAME"
+echo "  Tmux session: $(basename "$FOLDER_NAME")"
+echo ""
+echo "Switch to the tmux session with:"
+echo "  tmux attach -t $(basename "$FOLDER_NAME")"
+echo "Or use sesh: Ctrl+f and search for $(basename "$FOLDER_NAME")"
