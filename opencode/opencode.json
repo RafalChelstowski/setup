@@ -1,7 +1,32 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--autoConnect"],
+      "enabled": true
+    }
+  },
   "autoupdate": false,
-  "model": "opencode/glm-4.7-free",
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "*credentials*": "deny",
+      "*secrets*": "deny",
+      "*.pem": "deny",
+      "*.key": "deny",
+      "*_rsa": "deny",
+      "*_dsa": "deny",
+      "*_ecdsa": "deny",
+      "*_ed25519": "deny",
+      "*.p12": "deny",
+      "*.pfx": "deny",
+      "*.keystore": "deny"
+    }
+  },
   "theme": "system",
   "share": "disabled",
   "keybinds": {
