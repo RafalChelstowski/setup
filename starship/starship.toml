@@ -1,4 +1,5 @@
 # Pure preset - minimal prompt
+command_timeout = 300
 format = """
 $username\
 $hostname\
