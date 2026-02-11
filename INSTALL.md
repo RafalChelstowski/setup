@@ -67,96 +67,73 @@ brew install zsh-vi-mode
 | **zsh-vi-mode**      | Vim keybindings in shell                                     |
 | **wtfutil**          | Terminal dashboard for dev info (sesh HOME session), auto light/dark theme |
 | **bottom (btm)**     | System monitor with temps (paired with wtfutil in dashboard), auto light/dark theme |
-| **OpenCode**         | AI coding agent (install globally with `bun install -g opencode-ai`)                  |
+| **OpenCode**         | AI coding agent (install globally with `bun add -g opencode-ai`)                    |
 
 ## OpenCode Setup
 
-OpenCode requires special handling because bun manages its packages separately from the configuration files. Follow these steps:
+OpenCode is installed globally via bun. Plugins and dependencies are managed automatically.
 
-1. **Clean up old installation and cache**:
-   ```bash
-   ./scripts/cleanup-opencode.sh
-   ```
+**Installation:**
 
-2. **Remove the symlink** (manual step required):
-   ```bash
-   rm ~/.config/opencode
-   ```
+```bash
+# Install OpenCode CLI globally
+bun add -g opencode-ai
 
-3. **Setup OpenCode configuration**:
-   ```bash
-   ./scripts/setup-opencode-config.sh
-   ```
+# Copy config file (do NOT symlink — OpenCode creates package.json/node_modules here)
+mkdir -p ~/.config/opencode
+cp opencode/opencode.json ~/.config/opencode/
 
-4. **Install OpenCode globally** (if not already installed):
-   ```bash
-   bun install -g opencode-ai
-   ```
+# Skills symlink is created by setup-links.sh, or manually:
+ln -sf ~/dev/setup/skills ~/.config/opencode/skills
+```
 
-**Why separate setup?**
-- OpenCode creates `package.json`, `bun.lock`, and `node_modules/` in its config directory
-- If `~/.config/opencode` is symlinked to the repo, bun installs packages inside the repository
-- This causes slow installations and clutters the git repo with package files
-- The solution is to only copy `opencode.json` (config file) and let bun manage packages globally in `~/.bun/install/cache/`
+**Notes:**
+- Config: `~/.config/opencode/opencode.json` (copied, not symlinked)
+- Plugin cache: `~/.cache/opencode/node_modules/` (managed by OpenCode)
+- Local plugin deps: `~/.config/opencode/package.json` (managed by OpenCode, runs `bun install` at startup)
+- Binary: `~/.bun/bin/opencode` (symlink to bun global packages)
 
-**Run cleanup when:**
-- Installation is slow or hangs
-- You see `package.json`, `bun.lock`, or `node_modules/` in the repo's opencode folder
-- You want to clear old cached packages
+**Upgrade:**
+
+```bash
+bun update -g opencode-ai
+```
+
+**Verify:**
+
+```bash
+which opencode        # ~/.bun/bin/opencode
+opencode --version
+```
 
 ## OpenCode Troubleshooting
 
 ### Multiple OpenCode Installations
 
-**Problem**: You have opencode installed via multiple methods (curl, brew, bun) causing different tools to pick different versions.
+**Problem**: opencode installed via multiple methods (curl, brew, bun).
 
-**Symptoms**:
-- `opencode --version` shows different version than expected
-- Tmux binding (`prefix+J`) uses old version
-- 99 plugin fails with "process exit code: 1"
-
-**Diagnostic steps**:
+**Solution**: Keep only bun installation:
 ```bash
-# Check all opencode installations
-which -a opencode
+# Remove brew version (if exists)
+brew uninstall opencode 2>/dev/null
 
-# Verify current version
-opencode --version
+# Remove curl version (if exists)
+rm -rf ~/.opencode/
+
+# Remove conflicting PATH entry from ~/.zshrc (if present):
+# export PATH=/Users/.../.opencode/bin:$PATH
 ```
 
-**Solution**: Keep only bun installation, remove others:
+### Tmux uses wrong OpenCode version
+
+**Problem**: Tmux doesn't inherit shell PATH, uses old binary.
+
+**Check:**
 ```bash
-# Remove brew version
-brew uninstall opencode
-
-# Remove curl version
-rm -f ~/.opencode/bin/opencode
-
-# Remove conflicting PATH entry from ~/.zshrc (if exists)
-# Remove: export PATH=/Users/.../.opencode/bin:$PATH
-```
-
-### Tmux PATH Configuration
-
-**Problem**: Tmux doesn't inherit shell PATH automatically, causing tmux to use wrong opencode version.
-
-**Symptoms**:
-- Shell uses correct version: `opencode --version` → 1.1.11
-- Tmux uses wrong version: `prefix+J` opens old version (0.3.81)
-
-**Diagnostic step**:
-```bash
-# Check tmux global PATH
 tmux show-environment -g | grep PATH
 ```
 
-**Solution**: Add PATH to `~/.config/tmux/tmux.conf`:
-```bash
-# After terminal settings section
-set-environment -g "PATH" "$HOME/.bun/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
-```
-
-Reload tmux:
+**Fix**: Already configured in `tmux/tmux.conf:19` — PATH includes `$HOME/.bun/bin`. Reload:
 ```bash
 tmux source-file ~/.config/tmux/tmux.conf
 ```

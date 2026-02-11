@@ -3,12 +3,24 @@
   "mcp": {
     "chrome-devtools": {
       "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--autoConnect"],
+      "environment": {
+        "ZK_DIR": "/Users/rafalchelstowski/md"
+      },
+      "enabled": true
+    },
+    "zk": {
+      "type": "local",
       "command": [
-        "npx",
-        "-y",
-        "chrome-devtools-mcp@latest",
-        "--autoConnect"
+        "uv",
+        "--directory",
+        "/Users/rafalchelstowski/.local/share/zk-mcp/",
+        "run",
+        "server.py"
       ],
+      "environment": {
+        "ZK_DIR": "/Users/rafalchelstowski/md"
+      },
       "enabled": true
     }
   },
@@ -30,6 +42,14 @@
       "*.p12": "deny",
       "*.pfx": "deny",
       "*.keystore": "deny"
+    },
+    "skill": {
+      "*": "ask",
+      "three-best-practices": "allow",
+      "webgpu-threejs-tsl": "allow",
+      "vercel-react-best-practices": "allow",
+      "jira-analysis": "allow",
+      "zk-notes": "allow"
     }
   },
   "theme": "system",
@@ -44,8 +64,8 @@
         "qwen/qwen3-coder-30b": {
           "name": "Qwen3 Coder (l)"
         },
-        "zai-org/glm-4.6v-flash": {
-          "name": "GLM-4.6 flash (l)"
+        "zai-org/glm-4.7-flash": {
+          "name": "GLM-4.7 flash (l)"
         }
       },
       "npm": "@ai-sdk/openai-compatible",

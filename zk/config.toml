@@ -1,0 +1,19 @@
+[note]
+filename = "{{format-date now \"%Y-%m-%d-%H%M\"}}-{{slug title}}"
+extension = "md"
+template = "default.md"
+
+[format.markdown]
+hashtags = true
+
+[tool]
+editor = "nvim"
+fzf-preview = "bat -p --color always {-1}"
+
+[lsp.diagnostics]
+dead-link = "error"
+wiki-title = "hint"
+
+[alias]
+recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
+orphans = "zk list --orphan"

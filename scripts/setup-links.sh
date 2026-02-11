@@ -2,8 +2,8 @@
 
 # This script links your dotfiles for each tool from this repository,
 # backing up existing configs as tool_old if present.
-# Note: opencode is excluded from symlinking because it requires a separate setup
-# script (setup-opencode-config.sh) to avoid bun package management issues.
+# Note: opencode config is copied manually (see INSTALL.md) to avoid
+# bun installing packages inside the repository.
 tool_dirs=(atuin nvim sesh ghostty tmux mc vifm zsh wtf bottom)
 
 # Remove all existing tool_old folders before backup
@@ -95,3 +95,13 @@ for script in "${wtf_scripts[@]}"; do
 done
 
 echo "All tool configs backed up and linked!"
+
+# OpenCode skills (symlink skills directory)
+skills_src="$repo_dir/skills"
+skills_dest="$config_dir/opencode/skills"
+if [ -e "$skills_dest" ] || [ -L "$skills_dest" ]; then
+  rm -rf "$skills_dest"
+fi
+mkdir -p "$config_dir/opencode"
+ln -s "$skills_src" "$skills_dest"
+echo "Linked $skills_src -> $skills_dest"
