@@ -40,7 +40,7 @@ zvm_after_init() {
 
 # NVM default node on PATH eagerly (~0ms, avoids full nvm init ~2.5s)
 export NVM_DIR="$HOME/.nvm"
-export PATH="$NVM_DIR/versions/node/v$(cat "$NVM_DIR/alias/default" 2>/dev/null)/bin:$PATH"
+export PATH="$NVM_DIR/versions/node/$(cat "$NVM_DIR/alias/default" 2>/dev/null)/bin:$PATH"
 
 # NVM (lazy-loaded)
 _nvm_load() {
