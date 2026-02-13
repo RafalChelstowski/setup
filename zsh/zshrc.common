@@ -6,6 +6,51 @@ alias ls='eza'
 alias cls='clear && tmux clear-history'
 alias reload='source ~/.zshrc'
 
+# zk notebook directory
+export ZK_NOTEBOOK_DIR="$HOME/md"
+
+# Git shortcuts (all support -h flag to prepend HUSKY=0)
+_git_default_branch() {
+  git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@' || echo "master"
+}
+
+_git_husky() {
+  local husky="$1"
+  shift
+  if [[ "$husky" == "-h" ]]; then
+    HUSKY=0 git "$@"
+  else
+    git "$@"
+  fi
+}
+
+glg() {
+  if [[ "$1" == "-a" ]]; then
+    shift
+    git log --oneline --graph --decorate --all "$@"
+  else
+    git log --oneline --graph --decorate "$@"
+  fi
+}
+
+gfom() { _git_husky "$1" fetch origin "$(_git_default_branch)"; }
+grbom() { _git_husky "$1" rebase "origin/$(_git_default_branch)"; }
+grthom() { _git_husky "$1" reset --hard "origin/$(_git_default_branch)"; }
+
+grbi() {
+  local h=""
+  [[ "$1" == "-h" ]] && h=1 && shift
+  [[ -z "$1" ]] && echo "Usage: grbi [-h] <n>" && return 1
+  if [[ -n "$h" ]]; then HUSKY=0 git rebase -i "HEAD~$1"; else git rebase -i "HEAD~$1"; fi
+}
+
+grts() {
+  local h=""
+  [[ "$1" == "-h" ]] && h=1 && shift
+  [[ -z "$1" ]] && echo "Usage: grts [-h] <n>" && return 1
+  if [[ -n "$h" ]]; then HUSKY=0 git reset --soft "HEAD~$1"; else git reset --soft "HEAD~$1"; fi
+}
+
 # Zsh options
 setopt AUTO_CD
 setopt EXTENDED_GLOB
@@ -40,7 +85,10 @@ zvm_after_init() {
 
 # NVM default node on PATH eagerly (~0ms, avoids full nvm init ~2.5s)
 export NVM_DIR="$HOME/.nvm"
-export PATH="$NVM_DIR/versions/node/$(cat "$NVM_DIR/alias/default" 2>/dev/null)/bin:$PATH"
+_nvm_default=$(cat "$NVM_DIR/alias/default" 2>/dev/null)
+[[ "$_nvm_default" != v* ]] && _nvm_default="v$_nvm_default"
+export PATH="$NVM_DIR/versions/node/$_nvm_default/bin:$PATH"
+unset _nvm_default
 
 # NVM (lazy-loaded)
 _nvm_load() {

@@ -1,50 +1,41 @@
 # Keybindings Reference
 
-## Tmux (`prefix` = Ctrl+A)
+## Tmux (prefix = Ctrl+A)
 
 ### Session & Window Management
 
-| Key        | Action                               |
-| ---------- | ------------------------------------ |
-| `Ctrl+F`   | Sesh session picker (fzf)            |
-| `prefix+s` | Session tree                         |
-| `prefix+L` | Last session (sesh)                  |
-| `prefix+y` | Open vifm (fast file manager)        |
-| `prefix+Y` | Open MC (full-featured file manager) |
-| `prefix+g` | Open lazygit                         |
-| `prefix+j` | Split pane right (35%)               |
-| `prefix+J` | Split pane right with opencode       |
-| `prefix+u` | New window with 50/50 split          |
-| `prefix+x` | Kill pane                            |
-| `prefix+X` | Kill window                          |
-| `prefix+o` | Kill other panes                     |
-
-### Sesh Picker (`Ctrl+F`)
-
-| Key      | Action                |
-| -------- | --------------------- |
-| `Ctrl+A` | All sessions          |
-| `Ctrl+T` | Tmux sessions only    |
-| `Ctrl+G` | Config sessions       |
-| `Ctrl+X` | Zoxide directories    |
-| `Ctrl+F` | Find directories      |
-| `Ctrl+D` | Kill selected session |
+- `Ctrl+F` — Sesh session picker (fzf)
+  - `Ctrl+A` — All sessions
+  - `Ctrl+T` — Tmux sessions only
+  - `Ctrl+W` — Windows (all sessions)
+  - `Ctrl+G` — Config sessions
+  - `Ctrl+X` — Zoxide directories
+  - `Ctrl+F` — Find directories
+  - `Ctrl+D` — Kill selected session
+- `prefix+s` — Session tree
+- `prefix+l/L` — Last session (sesh)
+- `prefix+y` — Open vifm (fast file manager)
+- `prefix+Y` — Open MC (full-featured file manager)
+- `prefix+g` — Open lazygit
+- `prefix+m` — Open markdown note picker (fzf → nvim)
+- `prefix+j` — Split pane right (35%)
+- `prefix+J` — Split pane right with opencode
+- `prefix+u` — New window with 50/50 split
+- `prefix+x` — Kill pane
+- `prefix+X` — Kill window
+- `prefix+o` — Kill other panes
 
 ### Utilities
 
-| Key          | Action                                  |
-| ------------ | --------------------------------------- |
-| `prefix+F`   | tmux-thumbs (pattern hints → clipboard) |
-| `prefix+Tab` | extrakto (fzf text search → clipboard)  |
-| `Ctrl+D`     | Show pane/window count (in zsh only)    |
+- `prefix+F` — tmux-thumbs (pattern hints → clipboard)
+- `prefix+Tab` — extrakto (fzf text search → clipboard)
+- `Ctrl+D` — Show pane/window count (in zsh only)
 
 ### Copy Mode (vi)
 
-| Key | Action            |
-| --- | ----------------- |
-| `v` | Begin selection   |
-| `V` | Select line       |
-| `y` | Copy to clipboard |
+- `v` — Begin selection
+- `V` — Select line
+- `y` — Copy to clipboard
 
 ---
 
@@ -52,383 +43,216 @@
 
 ### Navigation
 
-| Key           | Mode  | Action                                  |
-| ------------- | ----- | --------------------------------------- |
-| `<C-h/j/k/l>` | n     | Move focus between windows (tmux-aware) |
-| `-`           | n     | Open Oil (parent directory)             |
-| `gs`          | n,x,o | Flash jump                              |
-| `gS`          | n,x,o | Flash treesitter select                 |
+- `<C-h/j/k/l>` — Move focus between windows (tmux-aware)
+- `-` — Open Oil (parent directory)
+- `gs` — Flash jump
+- `gS` — Flash treesitter select
 
 ### Buffer (`<leader>b`)
 
-| Key          | Mode | Action                            |
-| ------------ | ---- | --------------------------------- |
-| `<leader>bb` | n    | Buffer picker (Telescope)         |
-| `<leader>bd` | n    | Delete buffer (prompt if unsaved) |
-| `<leader>bD` | n    | Delete buffer (force)             |
-| `<leader>bo` | n    | Delete other buffers              |
-| `<leader>ba` | n    | Delete all buffers                |
-| `<leader>bx` | n    | Scratch buffer                    |
-| `<leader>bm` | n    | Markdown scratch buffer           |
+- `<leader>bb` — Buffer picker (Telescope)
+- `<leader>bd` — Delete buffer (prompt if unsaved)
+- `<leader>bD` — Delete buffer (force)
+- `<leader>bo` — Delete other buffers
+- `<leader>ba` — Delete all buffers
+- `<leader>bx` — Scratch buffer
+- `<leader>bm` — Markdown scratch buffer
 
 ### Macros (`<leader>m`)
 
-| Key          | Mode | Action                                    |
-| ------------ | ---- | ----------------------------------------- |
-| `<leader>mq` | n    | Toggle macro recording (register q)       |
-| `<leader>mr` | n    | Run macro (register q)                    |
-| `<leader>mR` | n    | Run macro (prompt for register)           |
-| `<leader>me` | n    | Edit macro (register q) in scratch buffer |
-| `<leader>ml` | n    | List registers (Telescope)                |
-| `<leader>mp` | v    | Play macro (q) on each selected line      |
+- `<leader>mq` — Toggle macro recording (register q)
+- `<leader>mr` — Run macro (register q)
+- `<leader>mR` — Run macro (prompt for register)
+- `<leader>me` — Edit macro (register q) in scratch buffer
+- `<leader>ml` — List registers (Telescope)
+- `<leader>mp` [v] — Play macro (q) on each selected line
 
-**Workflow example:**
-
-1. `<leader>mq` - Start recording
-2. Make your edits
-3. `<leader>mq` - Stop recording
-4. `<leader>mr` - Replay the macro
-5. `<leader>me` - Edit if you made a mistake
+Workflow: `<leader>mq` → make edits → `<leader>mq` → `<leader>mr` to replay, `<leader>me` to edit.
 
 ### Refactor (`<leader>r`)
 
-| Key          | Mode | Action                           |
-| ------------ | ---- | -------------------------------- |
-| `<leader>rr` | n,x  | Refactor menu (Telescope picker) |
-| `<leader>re` | x    | Extract function                 |
-| `<leader>rf` | x    | Extract function to file         |
-| `<leader>rv` | x    | Extract variable                 |
-| `<leader>ri` | n,x  | Inline variable                  |
-| `<leader>rI` | n    | Inline function                  |
-| `<leader>rb` | n    | Extract block                    |
-| `<leader>rB` | n    | Extract block to file            |
-| `<leader>rp` | n    | Printf debug statement           |
-| `<leader>rd` | n,x  | Print variable debug             |
-| `<leader>rc` | n    | Cleanup debug prints             |
+- `<leader>rr` — Refactor menu (Telescope picker)
+- `<leader>re` [x] — Extract function
+- `<leader>rf` [x] — Extract function to file
+- `<leader>rv` [x] — Extract variable
+- `<leader>ri` — Inline variable
+- `<leader>rI` — Inline function
+- `<leader>rb` — Extract block
+- `<leader>rB` — Extract block to file
+- `<leader>rp` — Printf debug statement
+- `<leader>rd` — Print variable debug
+- `<leader>rc` — Cleanup debug prints
 
-**Supported languages:** TypeScript, JavaScript, Lua, C/C++, Go, Python, Java, PHP, Ruby, C#
-
-**Workflow example (extract function):**
-
-1. Select code in visual mode
-2. `<leader>re` - Extract to function
-3. Enter function name when prompted
+Supports: TypeScript, JavaScript, Lua, C/C++, Go, Python, Java, PHP, Ruby, C#.
 
 ### Neotest (`<leader>n`)
 
-| Key          | Mode | Action                                    |
-| ------------ | ---- | ----------------------------------------- |
-| `<leader>nn` | n    | Run nearest test                          |
-| `<leader>nf` | n    | Run file tests                            |
-| `<leader>ns` | n    | Run test suite                            |
-| `<leader>nl` | n    | Run last test                             |
-| `<leader>nd` | n    | Debug nearest test                        |
-| `<leader>nD` | n    | Debug file tests                          |
-| `<leader>no` | n    | Show test output                          |
-| `<leader>nO` | n    | Toggle output panel                       |
-| `<leader>np` | n    | Toggle summary panel                      |
-| `<leader>nw` | n    | Toggle watch mode                         |
-| `<leader>nx` | n    | Stop running test                         |
-| `<leader>na` | n    | Attach to running test                    |
-| `<leader>nc` | n    | Run nearest with custom command (prompts) |
-| `<leader>nC` | n    | Run file with custom command (prompts)    |
+- `<leader>nn` — Run nearest test
+- `<leader>nf` — Run file tests
+- `<leader>ns` — Run test suite
+- `<leader>nl` — Run last test
+- `<leader>nd` — Debug nearest test
+- `<leader>nD` — Debug file tests
+- `<leader>no` — Show test output
+- `<leader>nO` — Toggle output panel
+- `<leader>np` — Toggle summary panel
+- `<leader>nw` — Toggle watch mode
+- `<leader>nx` — Stop running test
+- `<leader>na` — Attach to running test
+- `<leader>nc` — Run nearest with custom command (prompts)
+- `<leader>nC` — Run file with custom command (prompts)
 
-**Summary Panel Keys (`<leader>np`):**
+Summary panel: `r` run, `d` debug, `o` output, `i` jump to file, `w` watch, `J/K` next/prev failed, `m` mark, `R` run marked.
 
-| Key    | Action                  |
-| ------ | ----------------------- |
-| `r`    | Run test under cursor   |
-| `d`    | Debug test under cursor |
-| `o`    | Show output             |
-| `O`    | Show short output       |
-| `i`    | Jump to test file       |
-| `a`    | Attach to running test  |
-| `u`    | Stop test               |
-| `w`    | Toggle watch mode       |
-| `<CR>` | Expand/collapse         |
-| `e`    | Expand all              |
-| `P`    | Go to parent            |
-| `J`    | Next failed test        |
-| `K`    | Previous failed test    |
-| `m`    | Mark test               |
-| `R`    | Run all marked          |
-| `D`    | Debug all marked        |
-| `M`    | Clear all marks         |
-| `?`    | Show help               |
-
-**Supported test runners:**
-
-- Jest (`neotest-jest`)
-- Vitest (`neotest-vitest`)
-- Pytest (`neotest-python`)
-- Playwright (`neotest-playwright`)
-- Others via `vim-test` fallback (Cypress, etc.)
-
-**Workflow example:**
-
-1. Open a test file
-2. `<leader>nn` - Run test under cursor
-3. `<leader>no` - See output if failed
-4. `<leader>nw` - Enable watch mode for TDD
+Runners: Jest, Vitest, Pytest, Playwright, vim-test fallback.
 
 ### 99 AI Plugin (`<leader>9`)
 
-| Key          | Mode | Action                                              |
-| ------------ | ---- | --------------------------------------------------- |
-| `<leader>9f` | n    | Fill in function (AI completes function body)       |
-| `<leader>9v` | v    | Visual selection to AI (uses last visual selection) |
-| `<leader>9a` | v    | Ask with prompt (visual selection + custom prompt)  |
-| `<leader>9s` | v    | Stop all AI requests                                |
-
-**In prompt window (`<leader>9a`):**
-
-| Key  | Action                    |
-| ---- | ------------------------- |
-| `:w` | Confirm and submit prompt |
-| `q`  | Cancel prompt             |
-
-**Workflow example:**
-
-1. Select code in visual mode
-2. `<leader>9a` - Ask AI with a custom prompt
-3. Enter your prompt when prompted
-4. `:w` to submit, `q` to cancel
-5. `<leader>9s` - Cancel request if needed
+- `<leader>9f` — Fill in function (AI completes function body)
+- `<leader>9v` [v] — Visual selection to AI
+- `<leader>9a` [v] — Ask with prompt (visual + custom prompt), `:w` to submit, `q` to cancel
+- `<leader>9s` [v] — Stop all AI requests
 
 ### Harpoon (`<leader>h`)
 
-| Key          | Mode | Action                   |
-| ------------ | ---- | ------------------------ |
-| `<leader>hh` | n    | Toggle harpoon menu      |
-| `<leader>ha` | n    | Add file to harpoon      |
-| `<leader>hc` | n    | Clear all harpoon marks  |
-| `<leader>hn` | n    | Next harpoon file        |
-| `<leader>hp` | n    | Previous harpoon file    |
-| `<leader>h1` | n    | Jump to harpoon file 1   |
-| `<leader>h2` | n    | Jump to harpoon file 2   |
-| `<leader>h3` | n    | Jump to harpoon file 3   |
-| `<leader>h4` | n    | Jump to harpoon file 4   |
-| `<leader>ht` | n    | Telescope harpoon picker |
+- `<leader>hh` — Toggle harpoon menu
+- `<leader>ha` — Add file to harpoon
+- `<leader>hc` — Clear all harpoon marks
+- `<leader>hn/hp` — Next/previous harpoon file
+- `<leader>h1-4` — Jump to harpoon file 1-4
+- `<leader>ht` — Telescope harpoon picker
 
-**In harpoon menu:**
-| Key | Action |
-|-----|--------|
-| `<C-v>` | Open in vertical split |
-| `<C-x>` | Open in horizontal split |
-| `<C-t>` | Open in new tab |
+In harpoon menu: `<C-v>` vertical split, `<C-x>` horizontal split, `<C-t>` new tab.
 
 ### Diagnostics (`<leader>d`)
 
-| Key          | Mode | Action                                                 |
-| ------------ | ---- | ------------------------------------------------------ |
-| `<leader>dd` | n    | Toggle all diagnostics (Trouble)                       |
-| `<leader>dD` | n    | Buffer diagnostics only (Trouble)                      |
-| `<leader>dq` | n    | Quickfix list (Trouble)                                |
-| `<leader>dl` | n    | Location list (Trouble)                                |
-| `<leader>dc` | n    | Compile (prompt for command)                           |
-| `<leader>dr` | n    | Recompile (run last command)                           |
-| `<leader>di` | n    | Interrupt compilation                                  |
-| `<leader>df` | n    | Send compile files to quickfix (in compilation buffer) |
-| `<leader>dn` | n    | Next diagnostic                                        |
-| `<leader>dp` | n    | Previous diagnostic                                    |
-| `<leader>de` | n    | Open floating diagnostic                               |
-| `[d` / `]d`  | n    | Previous/next diagnostic (vim-style alias)             |
+- `<leader>dd` — Toggle all diagnostics (Trouble)
+- `<leader>dD` — Buffer diagnostics only (Trouble)
+- `<leader>dq` — Quickfix list (Trouble)
+- `<leader>dl` — Location list (Trouble)
+- `<leader>dc` — Compile (prompt for command)
+- `<leader>dr` — Recompile (run last command)
+- `<leader>di` — Interrupt compilation
+- `<leader>df` — Send compile files to quickfix (in compilation buffer)
+- `<leader>dn/dp` — Next/previous diagnostic
+- `<leader>de` — Open floating diagnostic
+- `[d` / `]d` — Previous/next diagnostic (vim-style)
 
-#### Compile Mode Usage
-
-Common commands to run with `:Compile` or `<leader>dc`:
-
-| Command          | Use case              |
-| ---------------- | --------------------- |
-| `yarn typecheck` | TypeScript type check |
-| `yarn lint`      | ESLint                |
-| `yarn build`     | Vite/Next.js build    |
-| `cargo check`    | Rust                  |
-| `mypy .`         | Python type check     |
-
-In compilation buffer:
-
-- `<CR>` — jump to error location (if recognized by compile-mode)
-- `<leader>df` — extract ALL errors with file:line:col + message → Trouble
-- `q` — close buffer
-
-**Recommended workflow:**
-
-1. Run compile (`<leader>dc`) → e.g., `yarn typecheck` or `yarn lint`
-2. Press `<leader>df` to extract all errors to quickfix with messages
-3. Navigate errors in Trouble (click or `<CR>` to jump)
-4. Fix errors, then `<leader>dr` to recompile
-
-**Supported formats:**
-
-- TypeScript: `src/file.ts:10:5 - error TS2304: message`
-- ESLint stylish: `/path/file.tsx` + indented `10:5  error  message`
+Compile workflow: `<leader>dc` → run e.g. `yarn typecheck` → `<leader>df` to extract errors → navigate in Trouble → `<leader>dr` to recompile.
 
 ### Treesitter Text Objects
 
-| Key         | Mode | Action                       |
-| ----------- | ---- | ---------------------------- |
-| `af` / `if` | o,x  | Around/inside function       |
-| `ac` / `ic` | o,x  | Around/inside class          |
-| `aa` / `ia` | o,x  | Around/inside argument       |
-| `]m` / `[m` | n    | Next/previous function start |
-| `]M` / `[M` | n    | Next/previous function end   |
-| `]]` / `[[` | n    | Next/previous class start    |
-| `][` / `[]` | n    | Next/previous class end      |
-| `<leader>a` | n    | Swap argument with next      |
-| `<leader>A` | n    | Swap argument with previous  |
+- `af/if` [o,x] — Around/inside function
+- `ac/ic` [o,x] — Around/inside class
+- `aa/ia` [o,x] — Around/inside argument
+- `]m/[m` — Next/previous function start
+- `]M/[M` — Next/previous function end
+- `]]/[[` — Next/previous class start
+- `]/[[]` — Next/previous class end
+- `<leader>a` — Swap argument with next
+- `<leader>A` — Swap argument with previous
 
 ### Copy to Clipboard (`<leader>c`)
 
-| Key          | Mode | Action                                 |
-| ------------ | ---- | -------------------------------------- |
-| `<leader>cf` | n    | Copy filename                          |
-| `<leader>cr` | n    | Copy relative path                     |
-| `<leader>cp` | n    | Copy full path                         |
-| `<leader>cw` | n    | Copy working directory                 |
-| `<leader>cl` | n    | Copy line reference (file:line)        |
-| `<leader>cd` | n    | Copy diagnostic (current line)         |
-| `<leader>cD` | n    | Copy diagnostic with context (for LLM) |
-| `<leader>ca` | n    | Copy all diagnostics in buffer         |
-
-#### Copy Diagnostic for LLM (`<leader>cD`)
-
-Copies diagnostic with file path, error message, and 3 lines of context above/below:
-
-````
-File: src/components/Button.tsx:42:5
-error: Cannot find name 'foo'. [ts2304] (typescript)
-
-Context:
-```typescript
-      39 | const handleClick = () => {
-      40 |   console.log('clicked');
- -->  41 |   foo.bar();
-      42 | };
-      43 |
-````
-
-```
+- `<leader>cf` — Copy filename
+- `<leader>cr` — Copy relative path
+- `<leader>cp` — Copy full path
+- `<leader>cw` — Copy working directory
+- `<leader>cl` — Copy line reference (file:line)
+- `<leader>cd` — Copy diagnostic (current line)
+- `<leader>cD` — Copy diagnostic with context (for LLM)
+- `<leader>ca` — Copy all diagnostics in buffer
 
 ### Git (`<leader>g`)
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>gs` | n,v | Stage hunk |
-| `<leader>gr` | n,v | Reset hunk |
-| `<leader>gS` | n | Stage buffer |
-| `<leader>gR` | n | Reset buffer |
-| `<leader>gu` | n | Undo stage hunk |
-| `<leader>gp` | n | Preview hunk |
-| `<leader>gb` | n | Blame line |
-| `<leader>gd` | n | Diff against index |
-| `<leader>gD` | n | Diff against last commit |
-| `]c` / `[c` | n | Next/previous hunk |
+- `<leader>gs` [n,v] — Stage hunk
+- `<leader>gr` [n,v] — Reset hunk
+- `<leader>gS` — Stage buffer
+- `<leader>gR` — Reset buffer
+- `<leader>gu` — Undo stage hunk
+- `<leader>gp` — Preview hunk
+- `<leader>gb` — Blame line
+- `<leader>gd` — Diff against index
+- `<leader>gD` — Diff against last commit
+- `]c/[c` — Next/previous hunk
 
-#### Git Conflicts (in conflicted files)
+Git conflicts: `co` ours, `ct` theirs, `cb` both, `c0` none, `]x/[x` next/prev conflict.
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `co` | n | Choose ours (current) |
-| `ct` | n | Choose theirs (incoming) |
-| `cb` | n | Choose both |
-| `c0` | n | Choose none |
-| `]x` / `[x` | n | Next/previous conflict |
+### Markdown / zk (`<leader>z`)
+
+- `<leader>zn` — New note (prompt for title)
+- `<leader>zo` — Browse all notes (telescope)
+- `<leader>zt` — Browse by tags (telescope)
+- `<leader>zf` [n,v] — Search notes by content
+- `<leader>zb` — Backlinks to current note
+- `<leader>zl` — Outbound links from current note
+- `Enter` — Follow wikilink (in md files in zk notebook)
+- `K` — Preview linked note hover (in md files in zk notebook)
 
 ### Search (Telescope) (`<leader>s`)
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>sf` | n | Find files |
-| `<leader>sg` | n | Live grep |
-| `<leader>sw` | n | Search current word |
-| `<leader>sb` | n | Search buffers |
-| `<leader>sh` | n | Search help |
-| `<leader>sk` | n | Search keymaps |
-| `<leader>ss` | n | Search select (Telescope pickers) |
-| `<leader>sd` | n | Search diagnostics |
-| `<leader>sr` | n | Resume last search |
-| `<leader>sn` | n | Search Neovim config files |
-| `<leader>s.` | n | Recent files |
-| `<leader>s/` | n | Live grep in open files |
-| `<leader>/` | n | Fuzzy search current buffer |
+- `<leader>sf` — Find files
+- `<leader>sg` — Live grep
+- `<leader>sw` — Search current word
+- `<leader>sb` — Search buffers
+- `<leader>sh` — Search help
+- `<leader>sk` — Search keymaps
+- `<leader>ss` — Search select (Telescope pickers)
+- `<leader>sd` — Search diagnostics
+- `<leader>sr` — Resume last search
+- `<leader>sn` — Search Neovim config files
+- `<leader>s.` — Recent files
+- `<leader>s/` — Live grep in open files
+- `<leader>/` — Fuzzy search current buffer
 
-### LSP Actions (`<leader>l`)
+### LSP (`<leader>l` and `g*`)
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>la` | n,x | Code action |
-| `<leader>lr` | n | Rename symbol |
-| `<leader>lh` | n | Toggle inlay hints |
-| `<leader>ls` | n | Restart LSP |
-| `<leader>li` | n | LSP info |
+- `<leader>la` [n,x] — Code action
+- `<leader>lr` — Rename symbol
+- `<leader>lh` — Toggle inlay hints
+- `<leader>ls` — Restart LSP
+- `<leader>li` — LSP info
+- `gd` — Go to definition
+- `gD` — Go to declaration
+- `gr` — Go to references
+- `gi` — Go to implementation
+- `gt` — Go to type definition
+- `gO` — Document symbols
+- `gW` — Workspace symbols
+- `K` — Hover documentation
 
-### LSP Navigation (`g*`)
+### Snippets
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `gd` | n | Go to definition |
-| `gD` | n | Go to declaration |
-| `gr` | n | Go to references |
-| `gi` | n | Go to implementation |
-| `gt` | n | Go to type definition |
-| `gO` | n | Document symbols |
-| `gW` | n | Workspace symbols |
-| `K` | n | Hover documentation |
-
-### Snippets (LuaSnip)
-
-| Key | Mode | Action |
-|-----|------|--------|
-| `<C-j>` | i,s | Jump to next snippet placeholder |
-| `<C-k>` | i,s | Jump to previous snippet placeholder |
+- `<C-j>` [i,s] — Jump to next snippet placeholder
+- `<C-k>` [i,s] — Jump to previous snippet placeholder
 
 ### Visual Mode
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<C-j>` | v | Move selection down (Schlepp) |
-| `<C-k>` | v | Move selection up (Schlepp) |
+- `<C-j>` [v] — Move selection down (Schlepp)
+- `<C-k>` [v] — Move selection up (Schlepp)
 
 ### Toggle (`<leader>t`)
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>tb` | n | Toggle git blame line |
-| `<leader>tD` | n | Toggle git deleted (preview inline) |
-| `<leader>tu` | n | Toggle Undotree |
+- `<leader>tb` — Toggle git blame line
+- `<leader>tD` — Toggle git deleted (preview inline)
+- `<leader>tu` — Toggle Undotree
 
 ### Project/Files (`<leader>p`)
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>pp` | n,v | Save and open Oil file browser |
-
-### 99 Plugin (`<leader>9`)
-
-| Key | Mode | Action |
-|-----|------|--------|
-| `<leader>9f` | n | Fill in function |
-| `<leader>9v` | v | Visual selection |
-| `<leader>9a` | v | Visual prompt |
-| `<leader>9s` | v | Stop requests |
+- `<leader>pp` [n,v] — Save and open Oil file browser
 
 ### Other
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `<Esc>` | n | Clear search highlights |
-| `<Esc><Esc>` | t | Exit terminal mode |
-| `<C-t>` | i | Tab out of brackets (neotab) |
+- `<Esc>` — Clear search highlights
+- `<Esc><Esc>` [t] — Exit terminal mode
+- `<C-t>` [i] — Tab out of brackets (neotab)
 
 ### Oil (file browser)
 
-| Key | Mode | Action |
-|-----|------|--------|
-| `-` | n | Open parent directory |
-| `<CR>` | n | Open file/directory |
-| `g?` | n | Show help |
-| `g.` | n | Toggle hidden files |
+- `-` — Open parent directory
+- `<CR>` — Open file/directory
+- `g?` — Show help
+- `g.` — Toggle hidden files
 
 ---
 
@@ -438,192 +262,46 @@ Open via `prefix+y` in tmux, or `vf` in shell (auto light/dark theme).
 
 ### Navigation
 
-| Key | Action |
-|-----|--------|
-| `j` / `k` | Down / Up |
-| `h` / `l` | Parent / Enter directory |
-| `gg` / `G` | Top / Bottom |
-| `Tab` | Switch panes |
-| `Ctrl+H` / `Ctrl+L` | Move focus left/right pane |
+- `j/k` — Down / Up
+- `h/l` — Parent / Enter directory
+- `gg/G` — Top / Bottom
+- `Tab` — Switch panes
+- `Ctrl+H/Ctrl+L` — Move focus left/right pane
 
 ### Bookmarks
 
-| Key | Action |
-|-----|--------|
-| `'d` | Jump to ~/dev |
-| `'s` | Jump to ~/dev/setup |
-| `'S` | Jump to ~/Documents/screenrec |
-| `'c` | Jump to ~/.config |
-| `'h` | Jump to ~ |
-| `'D` | Jump to ~/Downloads |
-| `m<key>` | Set bookmark at current dir |
+- `'d` — Jump to ~/dev
+- `'s` — Jump to ~/dev/setup
+- `'S` — Jump to ~/Documents/screenrec
+- `'c` — Jump to ~/.config
+- `'h` — Jump to ~
+- `'D` — Jump to ~/Downloads
+- `m<key>` — Set bookmark at current dir
 
 ### File Operations
 
-| Key | Action |
-|-----|--------|
-| `yy` | Yank (copy) file |
-| `dd` | Delete file |
-| `p` | Paste |
-| `cw` | Rename |
-| `af` | Create new file |
-| `ad` | Create new directory |
+- `yy` — Yank (copy) file
+- `dd` — Delete file
+- `p` — Paste
+- `cw` — Rename
+- `af` — Create new file
+- `ad` — Create new directory
 
 ### Useful Commands
 
-| Key | Action |
-|-----|--------|
-| `w` | Toggle preview pane |
-| `q` | Quit |
-| `zh` | Toggle hidden files |
-| `,s` | Open shell |
-| `,f` | Open in Finder |
-| `,g` | Open lazygit |
-| `,z` | Zoxide jump (`:Z <query>`) |
-| `yp` | Copy full path to clipboard |
-| `yn` | Copy filename to clipboard |
-
-### Commands
-
-| Command | Action |
-|---------|--------|
-| `:Z <query>` | Zoxide jump |
-| `:lg` | Open lazygit |
-| `:finder` | Open in Finder |
-| `:diff` | Diff selected files in nvim |
-
----
-
-## Midnight Commander
-
-Open via `prefix+Y` in tmux, or `mc` in shell (auto light/dark theme).
-
-### Panel Navigation (vim keymap)
-
-| Key | Action |
-|-----|--------|
-| `j` / `k` | Down / Up (in viewer) |
-| `Shift+J` / `Shift+K` | Mark and move down/up |
-| `Alt+J` | Enter child directory |
-| `Alt+K` | Go to parent directory |
-| `Tab` | Switch panels |
-| `Home` / `End` | Top / Bottom of list |
-| `{` / `}` | Page up / Page down |
-
-### File Operations
-
-| Key | Action |
-|-----|--------|
-| `F3` | View file |
-| `F4` | Edit file (nvim) |
-| `F5` | Copy |
-| `F6` | Move/Rename |
-| `F7` | Make directory |
-| `F8` | Delete |
-| `F10` or `Esc Esc` | Quit |
-
-### Selection
-
-| Key | Action |
-|-----|--------|
-| `Insert` or `Ctrl+T` | Toggle select file |
-| `+` | Select by pattern |
-| `-` | Unselect by pattern |
-| `*` | Invert selection |
-
-### Navigation & Search
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+S` or `Alt+S` | Quick search (type to filter) |
-| `Alt+C` | Quick cd (type path) |
-| `Ctrl+\` | Hotlist (bookmarks) |
-| `Alt+.` | Toggle hidden files |
-| `Ctrl+O` | Toggle shell (show terminal) |
-| `Alt+H` | Directory history |
-
-### Viewer (F3) - Vim-like
-
-| Key | Action |
-|-----|--------|
-| `j` / `k` | Scroll down / up |
-| `h` / `l` | Scroll left / right |
-| `d` / `u` | Half page down / up |
-| `f` / `b` | Full page down / up |
-| `g` / `G` | Top / Bottom |
-| `/` / `?` | Search forward / backward |
-| `n` / `N` | Next / Previous match |
-| `q` | Quit viewer |
-
-### Extended Commands (`Ctrl+X` prefix)
-
-| Key | Action |
-|-----|--------|
-| `Ctrl+X c` | Chmod |
-| `Ctrl+X o` | Chown |
-| `Ctrl+X l` | Create hard link |
-| `Ctrl+X s` | Create symlink |
-| `Ctrl+X i` | Panel info |
-| `Ctrl+X q` | Quick view panel |
-| `Ctrl+X h` | Add to hotlist |
-
----
-
-## Dashboard (wtfutil + btm)
-
-Opens automatically when connecting to sesh HOME session.
-Auto-detects macOS light/dark theme and applies matching colors.
-
-### Layout
-
-```
-
-┌─────────────────────────────────────────────┬──────────────────────────┐
-│ wtfutil (65%) │ btm (35%) │
-│ ┌───────────────────────────────────────┐ │ CPU graph │
-│ │ Dev Servers │ │ Memory usage │
-│ │ Shows: yarn, npm, vite, esbuild, etc. │ │ Temperature sensors │
-│ └───────────────────────────────────────┘ │ Battery │
-│ ┌───────────────────────────────────────┐ │ │
-│ │ Test Watchers │ │ │
-│ │ Shows: jest, vitest, playwright, etc. │ │ │
-│ └───────────────────────────────────────┘ │ │
-│ ┌───────────────────────────────────────┐ │ │
-│ │ LM Studio │ │ │
-│ │ Server status, loaded models │ │ │
-│ └───────────────────────────────────────┘ │ │
-└─────────────────────────────────────────────┴──────────────────────────┘
-
-````
-
-### wtfutil Keys
-
-| Key | Action |
-|-----|--------|
-| `1` | Focus Dev Servers widget |
-| `2` | Focus Test Watchers widget |
-| `3` | Focus LM Studio widget |
-| `r` | Refresh focused widget |
-| `/` | Open widget help |
-| `q` | Quit wtfutil (shell remains) |
-
-### btm Keys
-
-| Key | Action |
-|-----|--------|
-| `h/j/k/l` | Navigate widgets |
-| `gg` / `G` | Jump to top/bottom of process list |
-| `/` | Search processes |
-| `Tab` | Toggle process tree view |
-| `e` | Expand selected widget |
-| `q` | Quit btm (shell remains) |
-
-### Pane Navigation (standard tmux)
-
-| Key | Action |
-|-----|--------|
-| `prefix + arrow` | Switch between wtfutil and btm panes |
-| `prefix + z` | Zoom current pane |
+- `w` — Toggle preview pane
+- `q` — Quit
+- `zh` — Toggle hidden files
+- `,s` — Open shell
+- `,f` — Open in Finder
+- `,g` — Open lazygit
+- `,z` — Zoxide jump (`:Z <query>`)
+- `yp` — Copy full path to clipboard
+- `yn` — Copy filename to clipboard
+- `:Z <query>` — Zoxide jump
+- `:lg` — Open lazygit
+- `:finder` — Open in Finder
+- `:diff` — Diff selected files in nvim
 
 ---
 
@@ -631,59 +309,34 @@ Auto-detects macOS light/dark theme and applies matching colors.
 
 ### Completion
 
-| Key | Action |
-|-----|--------|
-| `Tab` | Standard completion |
-| `Shift+Tab` | Completion menu |
-| `Escape` | Cancel completion menu |
-| `Ctrl+R` | Atuin history search |
+- `Tab` — Standard completion
+- `Shift+Tab` — Completion menu
+- `Escape` — Cancel completion menu
+- `Ctrl+R` — Atuin history search
 
 ### Directory Navigation
 
-| Key | Action |
-|-----|--------|
-| `z <name>` | Zoxide jump to directory |
-| `vf` | vifm file manager (auto light/dark) |
-| `mc` | Midnight Commander (auto light/dark) |
+- `z <name>` — Zoxide jump to directory
+- `vf` — vifm file manager (auto light/dark)
+- `mc` — Midnight Commander (auto light/dark)
 
----
+### Git Shortcuts
 
-## Troubleshooting & Notes
+All commands auto-detect the default branch (`main`/`master`). Add `-h` as first arg to skip hooks (`HUSKY=0`).
 
-### Neotest Jest Configuration
+- `glg` — Log with graph + decorate (`glg -a` for all branches)
+- `gfom` — Fetch origin default branch
+- `grbom` — Rebase onto origin/default branch
+- `grbi <n>` — Interactive rebase last n commits
+- `grthom` — Hard reset to origin/default branch
+- `grts <n>` — Soft reset last n commits
+- `gwt <branch>` — Create worktree + tmux session
+- `gwtr <branch>` — Remove worktree + cleanup
 
-**Issue: Tests pass but show as failed**
+### Markdown / zk
 
-If tests run successfully but neotest marks them as failed, check your `jestCommand`:
-
-```lua
--- WRONG: trailing -- breaks JSON output parsing
-jestCommand = 'yarn test --',
-
--- CORRECT: no trailing --
-jestCommand = 'yarn test',
-````
-
-The `--` causes Jest to treat neotest's flags (`--json`, `--outputFile`, etc.) as positional arguments instead of options.
-
-**Issue: E5560 Vimscript function must not be called in a fast event context**
-
-In neotest config functions (like `jestConfigFile` or `cwd`), use async-safe `vim.uv` instead of `vim.fn`:
-
-```lua
--- WRONG: vim.fn is not async-safe
-cwd = function()
-  return vim.fn.getcwd()
-end,
-
--- CORRECT: vim.uv is async-safe
-cwd = function()
-  return vim.uv.cwd()
-end,
-
--- For file existence checks:
-local function file_exists(path)
-  local stat = vim.uv.fs_stat(path)
-  return stat and stat.type == 'file'
-end
-```
+- `zk new --title "..."` — Create a new note
+- `zk edit -i` — Search notes with fzf
+- `zk tag list` — List all tags
+- `zk list --orphan` — Find unlinked notes
+- `zk recent` — Edit recent notes (alias)

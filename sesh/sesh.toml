@@ -6,3 +6,18 @@ startup_command = "~/.local/bin/dashboard"
 [[session]]
 name = "DEV SETUP"
 path = "~/Dev/setup"
+
+[[session]]
+name = "MD"
+path = "~/md"
+startup_command = "vf -c 'set nomillerview | view' ~/md"
+
+[[session]]
+name = "KEYBINDS"
+path = "~/dev/setup"
+startup_command = "nvim KEYBINDINGS.md"
+
+[[session]]
+name = "SCREENREC"
+path = "~/Documents/screenrec"
+startup_command = "vf -c 'set sort=-mtime' ~/Documents/screenrec"

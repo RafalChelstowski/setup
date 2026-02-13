@@ -77,8 +77,10 @@ command! finder :!open .
 " Lazygit integration
 command! lg :!lazygit
 
-" File associations - open with nvim by default
-filetype * nvim %c
+" File associations (specific rules first, fallback last)
+
+" Markdown preview (syntax highlighted with bat)
+fileviewer {*.md},<text/markdown> bat --color always --style plain --wrap character %c
 
 " Images
 filetype {*.png,*.jpg,*.jpeg,*.gif,*.webp,*.bmp,*.ico},<image/*>
@@ -101,6 +103,9 @@ filetype {*.tar.bz2},<application/bzip2>
        \ tar -xjf %c
 filetype {*.tar},<application/tar>
        \ tar -xf %c
+
+" Fallback - open everything else with nvim
+filetype * nvim %c
 
 " Key mappings
 
