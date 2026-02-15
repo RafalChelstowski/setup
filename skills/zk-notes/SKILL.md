@@ -49,6 +49,8 @@ List all available tags in the notebook.
 
 Create a new note with title and optional directory.
 
+**CRITICAL:** Notes MUST be created in the `~/md` directory or its subfolders only. Use the `directory` parameter to specify subfolders within ~/md (e.g., `daily`, `projects`, `ideas`). Never create notes outside the ~/md folder hierarchy.
+
 ## Default behavior
 
 1. Always start with `get_note_paths` using `include_str` for keyword search
@@ -56,4 +58,5 @@ Create a new note with title and optional directory.
 3. Do not read all results -- pick the most relevant 1-3 paths
 4. Use `get_linking_notes` only for relationship/context queries
 5. When creating notes, use descriptive titles and add relevant tags in frontmatter
-6. Prefer searching over guessing -- the knowledge base may have relevant context
+6. **ALWAYS create notes in the ~/md directory** - use subfolders like `daily/`, `projects/`, `ideas/` via the `directory` parameter
+7. Prefer searching over guessing -- the knowledge base may have relevant context

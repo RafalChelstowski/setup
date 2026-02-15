@@ -55,6 +55,9 @@ set findprg='fd %p %s'
 " Dual-pane by default (no preview)
 " Press 'w' to toggle preview on/off
 
+" Filter out .DS_Store files
+filter /^\.DS_Store$/
+
 " Bookmarks - jump with '<key>
 mark d ~/dev
 mark s ~/dev/setup

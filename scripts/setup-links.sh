@@ -82,6 +82,15 @@ fi
 ln -s "$gwtr_src" "$gwtr_dest"
 echo "Linked $gwtr_src -> $gwtr_dest"
 
+# tmux-smart-window (switch to existing window or create new)
+tmux_sw_src="$repo_dir/scripts/tmux-smart-window"
+tmux_sw_dest="$HOME/.local/bin/tmux-smart-window"
+if [ -e "$tmux_sw_dest" ] || [ -L "$tmux_sw_dest" ]; then
+  rm -f "$tmux_sw_dest"
+fi
+ln -s "$tmux_sw_src" "$tmux_sw_dest"
+echo "Linked $tmux_sw_src -> $tmux_sw_dest"
+
 # wtfutil widget scripts (must be in PATH for wtfutil CmdRunner)
 wtf_scripts=("dev-servers" "test-watchers" "lmstudio-status")
 for script in "${wtf_scripts[@]}"; do
