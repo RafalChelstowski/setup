@@ -359,3 +359,13 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 Rust 1.93.1 installed. Cargo binary at `~/.cargo/bin/cargo`. Also installed `chafa` (terminal graphics library) as a build dependency.
 
 **Important:** Ensure `~/.cargo/bin` comes before `/opt/homebrew/bin` in PATH when running `cargo install`, or use `PATH="$HOME/.cargo/bin:$PATH" cargo install ...` to force the correct Rust version.
+
+## 16. vifm monochrome colorscheme
+
+**Configured vifm with a monochrome colorscheme** that works consistently in both light and dark terminal backgrounds.
+
+**Changes:**
+- Added `monochrome.vifm` colorscheme file to `~/.config/vifm/colors/`
+- Added `set colorscheme monochrome` to `vifm/vifmrc`
+
+The theme uses only terminal default colors with `reverse` attribute for selections and status lines, providing clean, distraction-free file management.

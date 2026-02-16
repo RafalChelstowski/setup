@@ -1,5 +1,8 @@
 " vifm configuration
 
+" colorscheme
+colorscheme monochrome
+
 " Use nvim as editor
 set vicmd=nvim
 
