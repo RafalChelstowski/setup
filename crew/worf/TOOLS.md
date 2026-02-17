@@ -4,10 +4,11 @@
 
 - **Workout exports:** `data/workouts/` -- MD files exported from workout app.
   Read-only. Replaced on each export.
-- **Nutrition exports:** `data/nutrition/` -- MD files exported from Cronometer.
-  Read-only. Replaced on each export.
 - **Daily memory:** `memory/YYYY-MM-DD.md` -- your session notes.
 - **Trainee profile:** `USER.md` -- update with significant observations.
+
+Note: Nutrition data is handled by Dr. Crusher. Worf does not have access to
+nutrition exports.
 
 ## Formatting (Telegram)
 
