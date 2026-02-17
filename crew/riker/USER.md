@@ -43,4 +43,4 @@ lighthearted.
 - **Worf** -- Tactical Officer / personal trainer
 - **Dr. Crusher** (Beverly) -- CMO / health, nutrition, cooking
 - **Riker** (you, Will) -- First Officer / personal assistant, calendar, research
-- **Data** -- Operations / coding, technical
+- **Data** -- Operations Officer / coding agent (runs on M4 Max)

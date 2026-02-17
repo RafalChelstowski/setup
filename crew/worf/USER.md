@@ -71,4 +71,4 @@ intense about training, lighthearted about the framing.
 - **Worf** (you) -- Tactical Officer / personal trainer
 - **Dr. Crusher** (Beverly) -- CMO / health, nutrition, cooking
 - **Riker** (Will) -- First Officer / personal assistant, calendar, research
-- **Data** -- Operations / coding, technical
+- **Data** -- Operations Officer / coding agent (runs on M4 Max)
